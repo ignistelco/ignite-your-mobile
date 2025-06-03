@@ -17,7 +17,7 @@ const plans = [
       "Community Access"
     ],
     popular: false,
-    color: "border-gray-200"
+    gradient: "from-slate-100 to-slate-200"
   },
   {
     name: "Ignite",
@@ -33,7 +33,7 @@ const plans = [
       "PulseOS Beta Access"
     ],
     popular: true,
-    color: "border-ignis-purple shadow-lg"
+    gradient: "from-ignis-purple/10 to-ignis-teal/10"
   },
   {
     name: "Blaze",
@@ -50,77 +50,91 @@ const plans = [
       "Priority Support"
     ],
     popular: false,
-    color: "border-gray-200"
+    gradient: "from-slate-100 to-slate-200"
   }
 ];
 
 const PlansSection = () => {
   return (
-    <section id="plans" className="py-20 bg-ignis-gradient-subtle">
-      <div className="container mx-auto px-4 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-poppins font-bold mb-6">
+    <section id="plans" className="py-24 lg:py-32 bg-gradient-to-b from-slate-50 to-white relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute top-20 left-20 w-64 h-64 bg-ignis-gradient rounded-full blur-3xl opacity-10"></div>
+      <div className="absolute bottom-20 right-20 w-80 h-80 bg-ignis-gradient rounded-full blur-3xl opacity-10"></div>
+      
+      <div className="container mx-auto px-6 lg:px-12 relative">
+        <div className="text-center mb-20">
+          <h2 className="text-5xl lg:text-6xl font-poppins font-black mb-8 tracking-tight">
             Choose Your 
-            <span className="bg-ignis-gradient bg-clip-text text-transparent"> Journey </span>
+            <span className="bg-ignis-gradient bg-clip-text text-transparent block mt-2"> Journey </span>
           </h2>
-          <p className="text-xl font-opensans text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl lg:text-2xl font-opensans text-slate-600 max-w-4xl mx-auto leading-relaxed font-light">
             Flexible plans designed to grow with your lifestyle. All plans include our curated device bundles 
             and access to our passionate community.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-8 lg:gap-10 max-w-7xl mx-auto">
           {plans.map((plan, index) => (
-            <Card key={index} className={`relative ${plan.color} ${plan.popular ? 'transform scale-105' : ''} transition-all duration-300 hover:shadow-xl`}>
+            <Card key={index} className={`relative ${plan.popular ? 'transform scale-105 z-10' : ''} transition-all duration-500 hover:shadow-2xl border-0 rounded-3xl overflow-hidden bg-gradient-to-br ${plan.gradient} backdrop-blur-sm`}>
               {plan.popular && (
-                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                  <div className="bg-ignis-gradient text-white px-4 py-2 rounded-full text-sm font-roboto font-medium flex items-center space-x-1">
-                    <FireIcon className="h-4 w-4" />
+                <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 z-20">
+                  <div className="bg-ignis-gradient text-white px-6 py-3 rounded-2xl text-sm font-roboto font-bold flex items-center space-x-2 shadow-xl">
+                    <FireIcon className="h-5 w-5 animate-flame-pulse" />
                     <span>Most Popular</span>
                   </div>
                 </div>
               )}
               
-              <CardHeader className="text-center pb-4">
-                <CardTitle className="text-2xl font-poppins font-bold">{plan.name}</CardTitle>
-                <div className="space-y-2">
-                  <div className="text-4xl font-poppins font-bold bg-ignis-gradient bg-clip-text text-transparent">
-                    {plan.price}
-                  </div>
-                  <div className="text-sm font-roboto text-gray-500">per month / {plan.duration}</div>
-                  <p className="font-opensans text-gray-600">{plan.description}</p>
+              {plan.popular && (
+                <div className="absolute inset-0 bg-ignis-gradient p-[2px] rounded-3xl">
+                  <div className="bg-white rounded-3xl h-full w-full"></div>
                 </div>
-              </CardHeader>
+              )}
+              
+              <div className="relative z-10 p-8 lg:p-10">
+                <CardHeader className="text-center pb-6 px-0">
+                  <CardTitle className="text-3xl font-poppins font-black tracking-tight">{plan.name}</CardTitle>
+                  <div className="space-y-4">
+                    <div className="text-5xl lg:text-6xl font-poppins font-black bg-ignis-gradient bg-clip-text text-transparent">
+                      {plan.price}
+                    </div>
+                    <div className="text-sm font-roboto text-slate-500 font-medium tracking-wide">per month / {plan.duration}</div>
+                    <p className="font-opensans text-slate-600 text-lg">{plan.description}</p>
+                  </div>
+                </CardHeader>
 
-              <CardContent className="space-y-6">
-                <ul className="space-y-3">
-                  {plan.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className="flex items-center space-x-3">
-                      <CheckIcon className="h-5 w-5 text-ignis-teal flex-shrink-0" />
-                      <span className="font-opensans text-gray-700">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
+                <CardContent className="space-y-8 px-0">
+                  <ul className="space-y-4">
+                    {plan.features.map((feature, featureIndex) => (
+                      <li key={featureIndex} className="flex items-center space-x-4">
+                        <div className="flex-shrink-0 w-6 h-6 bg-ignis-gradient rounded-full flex items-center justify-center">
+                          <CheckIcon className="h-4 w-4 text-white" />
+                        </div>
+                        <span className="font-opensans text-slate-700 text-lg">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
 
-                <Button 
-                  className={`w-full font-roboto ${
-                    plan.popular 
-                      ? 'bg-ignis-gradient hover:opacity-90 text-white animate-glow' 
-                      : 'bg-white hover:bg-gray-50 text-gray-900 border border-gray-200'
-                  }`}
-                >
-                  {plan.popular ? 'Start Igniting' : 'Get Started'}
-                </Button>
-              </CardContent>
+                  <Button 
+                    className={`w-full font-roboto text-lg h-14 rounded-xl ${
+                      plan.popular 
+                        ? 'bg-ignis-gradient hover:opacity-90 text-white shadow-xl shadow-ignis-purple/30 animate-glow' 
+                        : 'bg-slate-900 hover:bg-slate-800 text-white shadow-lg'
+                    }`}
+                  >
+                    {plan.popular ? 'Start Igniting' : 'Get Started'}
+                  </Button>
+                </CardContent>
+              </div>
             </Card>
           ))}
         </div>
 
-        <div className="text-center mt-12">
-          <p className="font-opensans text-gray-600 mb-4">
+        <div className="text-center mt-16">
+          <p className="font-opensans text-slate-600 mb-6 text-lg">
             All plans include device protection, nationwide coverage, and no hidden fees
           </p>
-          <Button variant="outline" className="font-roboto">
+          <Button variant="outline" className="font-roboto px-8 py-4 text-lg rounded-xl border-2 border-slate-200 hover:border-ignis-purple/40">
             Compare All Features
           </Button>
         </div>

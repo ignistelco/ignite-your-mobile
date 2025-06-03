@@ -5,134 +5,146 @@ import { UserGroupIcon, ChatBubbleLeftRightIcon, StarIcon } from "@heroicons/rea
 
 const CommunitySection = () => {
   return (
-    <section id="community" className="py-20 bg-white">
-      <div className="container mx-auto px-4 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+    <section id="community" className="py-24 lg:py-32 bg-gradient-to-b from-white to-slate-50 relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute top-0 left-0 w-full h-full bg-[linear-gradient(rgba(99,102,241,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(99,102,241,0.02)_1px,transparent_1px)] bg-[size:60px_60px]"></div>
+      
+      <div className="container mx-auto px-6 lg:px-12 relative">
+        <div className="grid lg:grid-cols-2 gap-20 items-center">
           
           {/* Left Content */}
-          <div className="space-y-8">
-            <div className="space-y-4">
-              <h2 className="text-4xl lg:text-5xl font-poppins font-bold">
+          <div className="space-y-10">
+            <div className="space-y-6">
+              <h2 className="text-5xl lg:text-6xl font-poppins font-black leading-tight tracking-tight">
                 Join a community that 
-                <span className="bg-ignis-gradient bg-clip-text text-transparent"> shares </span>
-                your fire
+                <span className="bg-ignis-gradient bg-clip-text text-transparent block mt-2"> shares </span>
+                <span className="block mt-2">your fire</span>
               </h2>
-              <p className="text-xl font-opensans text-gray-600 leading-relaxed">
+              <p className="text-xl lg:text-2xl font-opensans text-slate-600 leading-relaxed font-light">
                 Connect with like-minded individuals who share your passions. From adventure planning 
                 to creative collaborations, our community is where connections ignite possibilities.
               </p>
             </div>
 
-            <div className="space-y-6">
-              <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-ignis-gradient rounded-lg flex items-center justify-center">
-                  <UserGroupIcon className="h-6 w-6 text-white" />
+            <div className="space-y-8">
+              <div className="flex items-start space-x-6">
+                <div className="flex-shrink-0 w-16 h-16 bg-ignis-gradient rounded-2xl flex items-center justify-center shadow-xl">
+                  <UserGroupIcon className="h-8 w-8 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-roboto font-bold text-lg mb-2">Lifestyle Groups</h3>
-                  <p className="font-opensans text-gray-600">
+                  <h3 className="font-poppins font-bold text-2xl mb-3">Lifestyle Groups</h3>
+                  <p className="font-opensans text-slate-600 text-lg leading-relaxed">
                     Join specialized groups based on your interests and lifestyle segment
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-ignis-gradient rounded-lg flex items-center justify-center">
-                  <ChatBubbleLeftRightIcon className="h-6 w-6 text-white" />
+              <div className="flex items-start space-x-6">
+                <div className="flex-shrink-0 w-16 h-16 bg-ignis-gradient rounded-2xl flex items-center justify-center shadow-xl">
+                  <ChatBubbleLeftRightIcon className="h-8 w-8 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-roboto font-bold text-lg mb-2">Exclusive Events</h3>
-                  <p className="font-opensans text-gray-600">
+                  <h3 className="font-poppins font-bold text-2xl mb-3">Exclusive Events</h3>
+                  <p className="font-opensans text-slate-600 text-lg leading-relaxed">
                     Access member-only events, workshops, and meetups in your area
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-ignis-gradient rounded-lg flex items-center justify-center">
-                  <StarIcon className="h-6 w-6 text-white" />
+              <div className="flex items-start space-x-6">
+                <div className="flex-shrink-0 w-16 h-16 bg-ignis-gradient rounded-2xl flex items-center justify-center shadow-xl">
+                  <StarIcon className="h-8 w-8 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-roboto font-bold text-lg mb-2">Member Rewards</h3>
-                  <p className="font-opensans text-gray-600">
+                  <h3 className="font-poppins font-bold text-2xl mb-3">Member Rewards</h3>
+                  <p className="font-opensans text-slate-600 text-lg leading-relaxed">
                     Earn points for community participation and redeem for exclusive perks
                   </p>
                 </div>
               </div>
             </div>
 
-            <Button className="bg-ignis-gradient hover:opacity-90 text-white font-roboto px-8 py-4 text-lg">
+            <Button className="bg-ignis-gradient hover:opacity-90 text-white font-roboto px-10 py-5 text-lg rounded-xl shadow-xl shadow-ignis-purple/30 animate-glow">
               Explore Community
             </Button>
           </div>
 
-          {/* Right Content - Community Cards */}
-          <div className="space-y-6">
-            <Card className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <div className="h-32 bg-gradient-to-r from-green-400 to-blue-500 relative">
-                <div className="absolute inset-0 bg-black/20"></div>
-                <div className="absolute bottom-4 left-4 text-white">
-                  <h4 className="font-poppins font-bold">Adventure Seekers</h4>
-                  <p className="text-sm opacity-90">2,847 members</p>
+          {/* Right Content - Premium Community Cards */}
+          <div className="space-y-8">
+            <Card className="overflow-hidden border-0 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 rounded-2xl bg-white/80 backdrop-blur-sm">
+              <div className="h-40 bg-gradient-to-br from-emerald-500 to-teal-600 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+                <div className="absolute bottom-6 left-6 text-white">
+                  <h4 className="font-poppins font-bold text-xl">Adventure Seekers</h4>
+                  <p className="text-sm opacity-90 font-opensans">2,847 members</p>
+                </div>
+                <div className="absolute top-6 right-6 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center text-white font-poppins font-bold">
+                  🏔️
                 </div>
               </div>
-              <CardContent className="p-4">
-                <p className="font-opensans text-gray-600 text-sm">
-                  "Planning a weekend hiking trip to the mountains. Who's in? 🏔️"
+              <CardContent className="p-6">
+                <p className="font-opensans text-slate-600 leading-relaxed mb-4">
+                  "Planning a weekend hiking trip to the mountains. Who's in? The weather looks perfect!"
                 </p>
-                <div className="flex items-center justify-between mt-3">
-                  <div className="flex -space-x-2">
+                <div className="flex items-center justify-between">
+                  <div className="flex -space-x-3">
                     {[1, 2, 3].map((i) => (
-                      <div key={i} className="w-6 h-6 bg-ignis-gradient rounded-full border-2 border-white"></div>
+                      <div key={i} className="w-8 h-8 bg-ignis-gradient rounded-full border-2 border-white shadow-lg"></div>
                     ))}
                   </div>
-                  <span className="text-xs font-roboto text-gray-500">24 replies</span>
+                  <span className="text-sm font-roboto text-slate-500 font-medium">24 replies</span>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <div className="h-32 bg-gradient-to-r from-purple-400 to-pink-500 relative">
-                <div className="absolute inset-0 bg-black/20"></div>
-                <div className="absolute bottom-4 left-4 text-white">
-                  <h4 className="font-poppins font-bold">Creative Professionals</h4>
-                  <p className="text-sm opacity-90">1,532 members</p>
+            <Card className="overflow-hidden border-0 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 rounded-2xl bg-white/80 backdrop-blur-sm">
+              <div className="h-40 bg-gradient-to-br from-violet-500 to-purple-600 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+                <div className="absolute bottom-6 left-6 text-white">
+                  <h4 className="font-poppins font-bold text-xl">Creative Professionals</h4>
+                  <p className="text-sm opacity-90 font-opensans">1,532 members</p>
+                </div>
+                <div className="absolute top-6 right-6 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center text-white font-poppins font-bold">
+                  🎬
                 </div>
               </div>
-              <CardContent className="p-4">
-                <p className="font-opensans text-gray-600 text-sm">
-                  "Just finished editing this amazing sunset timelapse using the new editing suite! 🎬"
+              <CardContent className="p-6">
+                <p className="font-opensans text-slate-600 leading-relaxed mb-4">
+                  "Just finished editing this amazing sunset timelapse using the new editing suite!"
                 </p>
-                <div className="flex items-center justify-between mt-3">
-                  <div className="flex -space-x-2">
+                <div className="flex items-center justify-between">
+                  <div className="flex -space-x-3">
                     {[1, 2, 3, 4].map((i) => (
-                      <div key={i} className="w-6 h-6 bg-ignis-gradient rounded-full border-2 border-white"></div>
+                      <div key={i} className="w-8 h-8 bg-ignis-gradient rounded-full border-2 border-white shadow-lg"></div>
                     ))}
                   </div>
-                  <span className="text-xs font-roboto text-gray-500">18 replies</span>
+                  <span className="text-sm font-roboto text-slate-500 font-medium">18 replies</span>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <div className="h-32 bg-gradient-to-r from-blue-400 to-cyan-500 relative">
-                <div className="absolute inset-0 bg-black/20"></div>
-                <div className="absolute bottom-4 left-4 text-white">
-                  <h4 className="font-poppins font-bold">Tech Innovators</h4>
-                  <p className="text-sm opacity-90">3,201 members</p>
+            <Card className="overflow-hidden border-0 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 rounded-2xl bg-white/80 backdrop-blur-sm">
+              <div className="h-40 bg-gradient-to-br from-blue-500 to-cyan-600 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+                <div className="absolute bottom-6 left-6 text-white">
+                  <h4 className="font-poppins font-bold text-xl">Tech Innovators</h4>
+                  <p className="text-sm opacity-90 font-opensans">3,201 members</p>
+                </div>
+                <div className="absolute top-6 right-6 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center text-white font-poppins font-bold">
+                  🚀
                 </div>
               </div>
-              <CardContent className="p-4">
-                <p className="font-opensans text-gray-600 text-sm">
-                  "PulseOS beta is incredible! The customization options are next level 🚀"
+              <CardContent className="p-6">
+                <p className="font-opensans text-slate-600 leading-relaxed mb-4">
+                  "PulseOS beta is incredible! The customization options are next level"
                 </p>
-                <div className="flex items-center justify-between mt-3">
-                  <div className="flex -space-x-2">
+                <div className="flex items-center justify-between">
+                  <div className="flex -space-x-3">
                     {[1, 2, 3, 4, 5].map((i) => (
-                      <div key={i} className="w-6 h-6 bg-ignis-gradient rounded-full border-2 border-white"></div>
+                      <div key={i} className="w-8 h-8 bg-ignis-gradient rounded-full border-2 border-white shadow-lg"></div>
                     ))}
                   </div>
-                  <span className="text-xs font-roboto text-gray-500">42 replies</span>
+                  <span className="text-sm font-roboto text-slate-500 font-medium">42 replies</span>
                 </div>
               </CardContent>
             </Card>

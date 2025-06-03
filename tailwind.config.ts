@@ -76,8 +76,8 @@ export default {
 			},
 			backgroundImage: {
 				'ignis-gradient': 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%)',
-				'ignis-gradient-subtle': 'linear-gradient(135deg, #6366f1/10 0%, #8b5cf6/10 50%, #06b6d4/10 100%)',
-				'flame-pattern': 'radial-gradient(circle at 20% 50%, #f97316/20 0%, transparent 50%), radial-gradient(circle at 80% 30%, #f97316/15 0%, transparent 50%)',
+				'ignis-gradient-subtle': 'linear-gradient(135deg, #6366f1/5 0%, #8b5cf6/5 50%, #06b6d4/5 100%)',
+				'flame-pattern': 'radial-gradient(circle at 20% 50%, #f97316/10 0%, transparent 50%), radial-gradient(circle at 80% 30%, #f97316/8 0%, transparent 50%)',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -103,12 +103,12 @@ export default {
 				},
 				'flame-pulse': {
 					'0%, 100%': {
-						opacity: '0.7',
-						transform: 'scale(1)'
+						opacity: '0.8',
+						transform: 'scale(1) rotate(-2deg)'
 					},
 					'50%': {
 						opacity: '1',
-						transform: 'scale(1.05)'
+						transform: 'scale(1.1) rotate(2deg)'
 					}
 				},
 				'gradient-shift': {
@@ -121,10 +121,18 @@ export default {
 				},
 				'glow': {
 					'0%, 100%': {
-						boxShadow: '0 0 20px rgba(99, 102, 241, 0.3)'
+						boxShadow: '0 0 30px rgba(99, 102, 241, 0.4), 0 0 60px rgba(6, 182, 212, 0.2)'
 					},
 					'50%': {
-						boxShadow: '0 0 30px rgba(99, 102, 241, 0.5), 0 0 40px rgba(6, 182, 212, 0.3)'
+						boxShadow: '0 0 40px rgba(99, 102, 241, 0.6), 0 0 80px rgba(6, 182, 212, 0.4)'
+					}
+				},
+				'float': {
+					'0%, 100%': {
+						transform: 'translateY(0px)'
+					},
+					'50%': {
+						transform: 'translateY(-10px)'
 					}
 				}
 			},
@@ -133,7 +141,13 @@ export default {
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'flame-pulse': 'flame-pulse 3s ease-in-out infinite',
 				'gradient-shift': 'gradient-shift 8s ease-in-out infinite',
-				'glow': 'glow 2s ease-in-out infinite alternate',
+				'glow': 'glow 3s ease-in-out infinite',
+				'float': 'float 6s ease-in-out infinite',
+			},
+			spacing: {
+				'18': '4.5rem',
+				'88': '22rem',
+				'128': '32rem',
 			}
 		}
 	},
