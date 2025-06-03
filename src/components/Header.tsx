@@ -1,13 +1,26 @@
 
-import { DevicePhoneMobileIcon, Bars3Icon } from "@heroicons/react/24/outline";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { Search, ShoppingCart, MapPin, MessageCircle, User, ChevronDown } from "lucide-react";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200">
+      {/* Top bar with service categories */}
+      <div className="bg-gray-100 border-b border-gray-200">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="flex items-center justify-center h-10 space-x-8 text-sm font-roboto text-gray-700">
+            <a href="#" className="hover:text-ignis-purple transition-colors">WIRELESS</a>
+            <a href="#" className="hover:text-ignis-purple transition-colors">BUSINESS</a>
+            <a href="#" className="hover:text-ignis-purple transition-colors">PREPAID</a>
+            <a href="#" className="hover:text-ignis-purple transition-colors">INTERNET</a>
+          </div>
+        </div>
+      </div>
+
+      {/* Main header */}
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -26,45 +39,77 @@ const Header = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            <a href="#plans" className="font-roboto text-gray-700 hover:text-ignis-purple transition-colors">Plans</a>
-            <a href="#devices" className="font-roboto text-gray-700 hover:text-ignis-purple transition-colors">Devices</a>
-            <a href="#lifestyle" className="font-roboto text-gray-700 hover:text-ignis-purple transition-colors">Lifestyle</a>
-            <a href="#community" className="font-roboto text-gray-700 hover:text-ignis-purple transition-colors">Community</a>
-            <a href="#support" className="font-roboto text-gray-700 hover:text-ignis-purple transition-colors">Support</a>
+          <nav className="hidden lg:flex items-center space-x-8">
+            <div className="flex items-center space-x-1 cursor-pointer hover:text-ignis-purple transition-colors">
+              <span className="font-roboto text-gray-900">Plans</span>
+              <ChevronDown size={16} />
+            </div>
+            <div className="flex items-center space-x-1 cursor-pointer hover:text-ignis-purple transition-colors">
+              <span className="font-roboto text-gray-900">Phones & devices</span>
+              <ChevronDown size={16} />
+            </div>
+            <div className="flex items-center space-x-1 cursor-pointer hover:text-ignis-purple transition-colors">
+              <span className="font-roboto text-gray-900">Deals</span>
+              <ChevronDown size={16} />
+            </div>
+            <div className="flex items-center space-x-1 cursor-pointer hover:text-ignis-purple transition-colors">
+              <span className="font-roboto text-gray-900">Coverage</span>
+              <ChevronDown size={16} />
+            </div>
+            <div className="flex items-center space-x-1 cursor-pointer hover:text-ignis-purple transition-colors">
+              <span className="font-roboto text-gray-900">Join Us</span>
+              <ChevronDown size={16} />
+            </div>
           </nav>
 
-          {/* CTA Buttons */}
-          <div className="hidden md:flex items-center space-x-4">
-            <Button variant="outline" className="font-roboto">
-              Sign In
-            </Button>
-            <Button className="bg-ignis-gradient hover:opacity-90 text-white font-roboto px-6 animate-glow">
-              Get Started
-            </Button>
+          {/* Right side actions */}
+          <div className="hidden lg:flex items-center space-x-4">
+            <div className="flex items-center space-x-1 text-gray-700 hover:text-ignis-purple transition-colors cursor-pointer">
+              <MapPin size={18} />
+              <span className="font-roboto text-sm">Find a store</span>
+            </div>
+            <div className="flex items-center space-x-1 text-gray-700 hover:text-ignis-purple transition-colors cursor-pointer">
+              <MessageCircle size={18} />
+              <span className="font-roboto text-sm">Contact & support</span>
+              <ChevronDown size={14} />
+            </div>
+            <div className="flex items-center space-x-1 text-gray-700 hover:text-ignis-purple transition-colors cursor-pointer">
+              <ShoppingCart size={18} />
+              <span className="font-roboto text-sm">Cart</span>
+            </div>
+            <Search size={18} className="text-gray-700 hover:text-ignis-purple transition-colors cursor-pointer" />
+            <div className="flex items-center space-x-1 cursor-pointer">
+              <Button className="bg-ignis-gradient hover:opacity-90 text-white font-roboto px-4 py-2 text-sm">
+                <User size={16} className="mr-2" />
+                My account
+                <ChevronDown size={14} className="ml-1" />
+              </Button>
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
           <button 
-            className="md:hidden p-2"
+            className="lg:hidden p-2"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            <Bars3Icon className="h-6 w-6 text-gray-700" />
+            <div className="w-6 h-0.5 bg-gray-700 mb-1"></div>
+            <div className="w-6 h-0.5 bg-gray-700 mb-1"></div>
+            <div className="w-6 h-0.5 bg-gray-700"></div>
           </button>
         </div>
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-200 bg-white">
+          <div className="lg:hidden py-4 border-t border-gray-200 bg-white">
             <nav className="flex flex-col space-y-4">
               <a href="#plans" className="font-roboto text-gray-700">Plans</a>
-              <a href="#devices" className="font-roboto text-gray-700">Devices</a>
-              <a href="#lifestyle" className="font-roboto text-gray-700">Lifestyle</a>
-              <a href="#community" className="font-roboto text-gray-700">Community</a>
-              <a href="#support" className="font-roboto text-gray-700">Support</a>
+              <a href="#devices" className="font-roboto text-gray-700">Phones & devices</a>
+              <a href="#deals" className="font-roboto text-gray-700">Deals</a>
+              <a href="#coverage" className="font-roboto text-gray-700">Coverage</a>
+              <a href="#join" className="font-roboto text-gray-700">Join Us</a>
               <div className="flex flex-col space-y-2 pt-4">
-                <Button variant="outline" className="font-roboto">Sign In</Button>
-                <Button className="bg-ignis-gradient text-white font-roboto">Get Started</Button>
+                <Button variant="outline" className="font-roboto">Find a store</Button>
+                <Button className="bg-ignis-gradient text-white font-roboto">My account</Button>
               </div>
             </nav>
           </div>
