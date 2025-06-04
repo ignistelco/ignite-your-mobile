@@ -1,9 +1,11 @@
 
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import BentoLifestyleGrid from "@/components/BentoLifestyleGrid";
-import PlansSection from "@/components/PlansSection";
+import LifestyleCuration from "@/components/LifestyleCuration";
+import CarrierDifferentiation from "@/components/CarrierDifferentiation";
+import PulseOSSection from "@/components/PulseOSSection";
 import DeviceCards from "@/components/DeviceCards";
+import PlansSection from "@/components/PlansSection";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -11,8 +13,10 @@ const Index = () => {
     <div className="min-h-screen bg-white">
       <Header />
       <Hero />
-      <BentoLifestyleGrid />
+      <LifestyleCuration />
+      <CarrierDifferentiation />
       <DeviceCards />
+      <PulseOSSection />
       <PlansSection />
       <Footer />
     </div>

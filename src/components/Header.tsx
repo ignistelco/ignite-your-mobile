@@ -23,8 +23,8 @@ const Header = () => {
       {/* Main header */}
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Brand Text Only */}
-          <div className="flex items-center">
+          {/* Brand Text Only - moved further left with more space */}
+          <div className="flex items-center mr-16">
             <span className="text-2xl font-light text-gray-900">
               Ignis Mobile
             </span>
@@ -71,11 +71,11 @@ const Header = () => {
             </div>
             <Search size={18} className="text-gray-700 hover:text-ignis-purple transition-colors cursor-pointer" />
             <div className="flex items-center space-x-1 cursor-pointer">
-              <Button className="bg-ignis-gradient hover:opacity-90 text-white font-light px-4 py-2 text-sm">
-                <User size={16} className="mr-2" />
-                My account
-                <ChevronDown size={14} className="ml-1" />
-              </Button>
+              <button className="flex items-center space-x-2 text-gray-700 hover:text-ignis-purple transition-colors font-light text-sm">
+                <User size={16} />
+                <span>My account</span>
+                <ChevronDown size={14} />
+              </button>
             </div>
           </div>
 
