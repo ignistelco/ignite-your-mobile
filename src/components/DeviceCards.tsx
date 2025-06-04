@@ -57,7 +57,7 @@ const DeviceCards = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl lg:text-6xl font-light text-gray-900 mb-6">
-            Hot <span className="font-normal">Devices</span>
+            <span className="font-bold">Popular</span> <span className="font-normal">Devices</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto font-light">
             Discover our curated selection of premium devices, handpicked for each lifestyle segment

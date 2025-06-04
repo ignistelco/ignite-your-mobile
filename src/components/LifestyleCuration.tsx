@@ -81,7 +81,6 @@ const LifestyleCuration = () => {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-16 items-start">
-          {/* Left side - Lifestyle buttons */}
           <div className="space-y-4">
             <h3 className="text-2xl font-light text-gray-900 mb-8">Understanding Our 8 Lifestyle Segments</h3>
             {lifestyles.map((lifestyle, index) => (
@@ -110,7 +109,6 @@ const LifestyleCuration = () => {
             ))}
           </div>
 
-          {/* Right side - Description */}
           <div className="lg:pl-8">
             <AnimatePresence mode="wait">
               <motion.div
@@ -123,9 +121,7 @@ const LifestyleCuration = () => {
               >
                 <div>
                   <div className="flex items-center space-x-3 mb-4">
-                    {lifestyles[activeLifestyle].icon && (
-                      <lifestyles[activeLifestyle].icon className="h-8 w-8 text-ignis-purple" />
-                    )}
+                    <lifestyles[activeLifestyle].icon className="h-8 w-8 text-ignis-purple" />
                     <h3 className="text-3xl font-light text-gray-900">
                       {lifestyles[activeLifestyle].title}
                     </h3>
