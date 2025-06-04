@@ -11,10 +11,10 @@ const Header = () => {
       {/* Top bar with service categories */}
       <div className="bg-gray-100 border-b border-gray-200">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="flex items-center justify-center h-10 space-x-8 text-sm font-roboto text-gray-700">
-            <a href="#" className="hover:text-ignis-purple transition-colors">WIRELESS</a>
+          <div className="flex items-center justify-start h-10 space-x-8 text-sm font-roboto text-gray-700">
+            <a href="#" className="hover:text-ignis-purple transition-colors">PULSEOS</a>
             <a href="#" className="hover:text-ignis-purple transition-colors">BUSINESS</a>
-            <a href="#" className="hover:text-ignis-purple transition-colors">PREPAID</a>
+            <a href="#" className="hover:text-ignis-purple transition-colors">BRING YOUR OWN DEVICE</a>
             <a href="#" className="hover:text-ignis-purple transition-colors">INTERNET</a>
           </div>
         </div>
@@ -45,7 +45,7 @@ const Header = () => {
               <ChevronDown size={16} />
             </div>
             <div className="flex items-center space-x-1 cursor-pointer hover:text-ignis-purple transition-colors">
-              <span className="font-roboto text-gray-900">Phones & devices</span>
+              <span className="font-roboto text-gray-900">Devices</span>
               <ChevronDown size={16} />
             </div>
             <div className="flex items-center space-x-1 cursor-pointer hover:text-ignis-purple transition-colors">
@@ -62,8 +62,8 @@ const Header = () => {
             </div>
           </nav>
 
-          {/* Right side actions */}
-          <div className="hidden lg:flex items-center space-x-4">
+          {/* Right side actions - moved to far right */}
+          <div className="hidden lg:flex items-center space-x-4 ml-auto">
             <div className="flex items-center space-x-1 text-gray-700 hover:text-ignis-purple transition-colors cursor-pointer">
               <MapPin size={18} />
               <span className="font-roboto text-sm">Find a store</span>
@@ -103,7 +103,7 @@ const Header = () => {
           <div className="lg:hidden py-4 border-t border-gray-200 bg-white">
             <nav className="flex flex-col space-y-4">
               <a href="#plans" className="font-roboto text-gray-700">Plans</a>
-              <a href="#devices" className="font-roboto text-gray-700">Phones & devices</a>
+              <a href="#devices" className="font-roboto text-gray-700">Devices</a>
               <a href="#deals" className="font-roboto text-gray-700">Deals</a>
               <a href="#coverage" className="font-roboto text-gray-700">Coverage</a>
               <a href="#join" className="font-roboto text-gray-700">Join Us</a>
