@@ -3,11 +3,11 @@ import { Facebook, Instagram, Linkedin } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="bg-purple-100 text-gray-800">
+    <footer className="bg-purple-200 text-gray-800">
       <div className="container mx-auto px-4 lg:px-8 py-16">
         
         {/* Top Section */}
-        <div className="flex justify-center items-center py-8 mb-12 border-b border-purple-200">
+        <div className="flex justify-center items-center py-8 mb-12 border-b border-purple-300">
           <div className="flex items-center space-x-3">
             <h2 className="text-2xl font-light text-gray-800">What ignites your passion?</h2>
           </div>
@@ -51,7 +51,7 @@ const Footer = () => {
         </div>
 
         {/* Bottom Section */}
-        <div className="pt-8 border-t border-purple-200">
+        <div className="pt-8 border-t border-purple-300">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-6 lg:space-y-0">
             
             {/* Copyright and Admin Portal */}
@@ -66,25 +66,25 @@ const Footer = () => {
 
             {/* Social Media Icons */}
             <div className="flex space-x-4">
-              <div className="w-10 h-10 bg-purple-200 rounded-lg flex items-center justify-center hover:bg-purple-300 transition-colors cursor-pointer">
+              <div className="w-10 h-10 bg-purple-300 rounded-lg flex items-center justify-center hover:bg-purple-400 transition-colors cursor-pointer">
                 <Facebook size={18} />
               </div>
-              <div className="w-10 h-10 bg-purple-200 rounded-lg flex items-center justify-center hover:bg-purple-300 transition-colors cursor-pointer">
+              <div className="w-10 h-10 bg-purple-300 rounded-lg flex items-center justify-center hover:bg-purple-400 transition-colors cursor-pointer">
                 <span className="text-sm font-normal">TT</span>
               </div>
-              <div className="w-10 h-10 bg-purple-200 rounded-lg flex items-center justify-center hover:bg-purple-300 transition-colors cursor-pointer">
+              <div className="w-10 h-10 bg-purple-300 rounded-lg flex items-center justify-center hover:bg-purple-400 transition-colors cursor-pointer">
                 <span className="text-sm font-normal">X</span>
               </div>
-              <div className="w-10 h-10 bg-purple-200 rounded-lg flex items-center justify-center hover:bg-purple-300 transition-colors cursor-pointer">
+              <div className="w-10 h-10 bg-purple-300 rounded-lg flex items-center justify-center hover:bg-purple-400 transition-colors cursor-pointer">
                 <Instagram size={18} />
               </div>
-              <div className="w-10 h-10 bg-purple-200 rounded-lg flex items-center justify-center hover:bg-purple-300 transition-colors cursor-pointer">
+              <div className="w-10 h-10 bg-purple-300 rounded-lg flex items-center justify-center hover:bg-purple-400 transition-colors cursor-pointer">
                 <span className="text-sm font-normal">TW</span>
               </div>
-              <div className="w-10 h-10 bg-purple-200 rounded-lg flex items-center justify-center hover:bg-purple-300 transition-colors cursor-pointer">
+              <div className="w-10 h-10 bg-purple-300 rounded-lg flex items-center justify-center hover:bg-purple-400 transition-colors cursor-pointer">
                 <span className="text-sm font-normal">SC</span>
               </div>
-              <div className="w-10 h-10 bg-purple-200 rounded-lg flex items-center justify-center hover:bg-purple-300 transition-colors cursor-pointer">
+              <div className="w-10 h-10 bg-purple-300 rounded-lg flex items-center justify-center hover:bg-purple-400 transition-colors cursor-pointer">
                 <Linkedin size={18} />
               </div>
             </div>
