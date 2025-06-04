@@ -1,143 +1,195 @@
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 import { Button } from "@/components/ui/button";
-import { CheckIcon, FireIcon } from "@heroicons/react/24/outline";
-
-const plans = [
-  {
-    name: "Spark",
-    duration: "6 months",
-    price: "$45",
-    description: "Perfect for getting started",
-    features: [
-      "15GB Premium Data",
-      "Unlimited Talk & Text",
-      "Device Bundle Discount",
-      "Basic Lifestyle Apps",
-      "Community Access"
-    ],
-    popular: false,
-    gradient: "from-slate-100 to-slate-200"
-  },
-  {
-    name: "Ignite",
-    duration: "12 months", 
-    price: "$65",
-    description: "Most popular choice",
-    features: [
-      "35GB Premium Data",
-      "Unlimited Talk & Text",
-      "Premium Device Bundle",
-      "Lifestyle App Suite",
-      "Community Premium",
-      "PulseOS Beta Access"
-    ],
-    popular: true,
-    gradient: "from-ignis-purple/10 to-ignis-teal/10"
-  },
-  {
-    name: "Blaze",
-    duration: "24 months",
-    price: "$85", 
-    description: "Ultimate experience",
-    features: [
-      "Unlimited Premium Data",
-      "Unlimited Talk & Text",
-      "Flagship Device Bundle",
-      "Complete App Ecosystem",
-      "VIP Community Access",
-      "PulseOS Full Access",
-      "Priority Support"
-    ],
-    popular: false,
-    gradient: "from-slate-100 to-slate-200"
-  }
-];
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Check } from "lucide-react";
 
 const PlansSection = () => {
+  const { ref, inView } = useInView({ 
+    triggerOnce: true,
+    rootMargin: '-10% 0px'
+  });
+
+  const plans = [
+    {
+      name: "Ignis Connect",
+      price: "$15",
+      period: "/month",
+      description: "Perfect for essential connectivity",
+      features: [
+        "5GB High-Speed Data",
+        "Unlimited Talk & Text",
+        "T-Mobile Network",
+        "Mobile Hotspot",
+        "Basic Support"
+      ],
+      popular: false,
+      gradient: "from-gray-50 to-gray-100"
+    },
+    {
+      name: "Ignis Go",
+      price: "$25",
+      period: "/month",
+      description: "Ideal for everyday power users",
+      features: [
+        "15GB High-Speed Data",
+        "Unlimited Talk & Text",
+        "T-Mobile 5G Network",
+        "10GB Mobile Hotspot",
+        "Priority Support",
+        "International Texting"
+      ],
+      popular: true,
+      gradient: "from-ignis-purple/5 to-ignis-teal/5"
+    },
+    {
+      name: "Ignis Ultimate",
+      price: "$35",
+      period: "/month",
+      description: "Maximum performance for creators",
+      features: [
+        "Unlimited High-Speed Data",
+        "Unlimited Talk & Text",
+        "T-Mobile 5G Ultra",
+        "Unlimited Mobile Hotspot",
+        "Premium Support",
+        "International Calling",
+        "Device Protection"
+      ],
+      popular: false,
+      gradient: "from-ignis-orange/5 to-ignis-purple/5"
+    }
+  ];
+
+  const dataPlanss = [
+    {
+      name: "Data Go",
+      price: "$10",
+      description: "For tablets & watches",
+      data: "5GB"
+    },
+    {
+      name: "Data Connect",
+      price: "$50",
+      description: "Home internet solution",
+      data: "100GB"
+    }
+  ];
+
   return (
-    <section id="plans" className="py-24 lg:py-32 bg-gradient-to-b from-slate-50 to-white relative overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute top-20 left-20 w-64 h-64 bg-ignis-gradient rounded-full blur-3xl opacity-10"></div>
-      <div className="absolute bottom-20 right-20 w-80 h-80 bg-ignis-gradient rounded-full blur-3xl opacity-10"></div>
-      
-      <div className="container mx-auto px-6 lg:px-12 relative">
-        <div className="text-center mb-20">
-          <h2 className="text-5xl lg:text-6xl font-poppins font-black mb-8 tracking-tight">
-            Choose Your 
-            <span className="bg-ignis-gradient bg-clip-text text-transparent block mt-2"> Journey </span>
+    <section className="py-20 bg-white">
+      <div className="container mx-auto px-6 lg:px-12">
+        <motion.div
+          ref={ref}
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl lg:text-6xl font-light text-gray-900 mb-6">
+            <span className="font-normal">Plans</span>
           </h2>
-          <p className="text-xl lg:text-2xl font-opensans text-slate-600 max-w-4xl mx-auto leading-relaxed font-light">
-            Flexible plans designed to grow with your lifestyle. All plans include our curated device bundles 
-            and access to our passionate community.
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto font-light mb-8">
+            Ignis Mobile: Where Connectivity Sparks Adventure
           </p>
-        </div>
+          
+          {/* Plan Duration Options */}
+          <div className="flex justify-center space-x-2 mb-12">
+            {["6 months", "12 months", "24 months"].map((duration) => (
+              <Button
+                key={duration}
+                variant="outline"
+                className="border-gray-200 hover:border-ignis-purple hover:text-ignis-purple font-light"
+              >
+                {duration}
+              </Button>
+            ))}
+          </div>
+        </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-8 lg:gap-10 max-w-7xl mx-auto">
+        {/* Main Plans */}
+        <div className="grid md:grid-cols-3 gap-8 mb-16">
           {plans.map((plan, index) => (
-            <Card key={index} className={`relative ${plan.popular ? 'transform scale-105 z-10' : ''} transition-all duration-500 hover:shadow-2xl border-0 rounded-3xl overflow-hidden bg-gradient-to-br ${plan.gradient} backdrop-blur-sm`}>
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.1 * index, duration: 0.5 }}
+              className="relative"
+            >
               {plan.popular && (
-                <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 z-20">
-                  <div className="bg-ignis-gradient text-white px-6 py-3 rounded-2xl text-sm font-roboto font-bold flex items-center space-x-2 shadow-xl">
-                    <FireIcon className="h-5 w-5 animate-flame-pulse" />
-                    <span>Most Popular</span>
-                  </div>
-                </div>
+                <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-ignis-gradient text-white z-10">
+                  Most Popular
+                </Badge>
               )}
               
-              {plan.popular && (
-                <div className="absolute inset-0 bg-ignis-gradient p-[2px] rounded-3xl">
-                  <div className="bg-white rounded-3xl h-full w-full"></div>
-                </div>
-              )}
-              
-              <div className="relative z-10 p-8 lg:p-10">
-                <CardHeader className="text-center pb-6 px-0">
-                  <CardTitle className="text-3xl font-poppins font-black tracking-tight">{plan.name}</CardTitle>
-                  <div className="space-y-4">
-                    <div className="text-5xl lg:text-6xl font-poppins font-black bg-ignis-gradient bg-clip-text text-transparent">
-                      {plan.price}
-                    </div>
-                    <div className="text-sm font-roboto text-slate-500 font-medium tracking-wide">per month / {plan.duration}</div>
-                    <p className="font-opensans text-slate-600 text-lg">{plan.description}</p>
+              <Card className={`
+                h-full border-0 shadow-lg hover:shadow-2xl transition-all duration-300
+                ${plan.popular ? 'ring-2 ring-ignis-purple/20 scale-105' : ''}
+                bg-gradient-to-br ${plan.gradient}
+              `}>
+                <CardHeader className="text-center pb-4">
+                  <CardTitle className="text-2xl font-light text-gray-900">
+                    {plan.name}
+                  </CardTitle>
+                  <div className="flex items-center justify-center">
+                    <span className="text-4xl font-light text-gray-900">{plan.price}</span>
+                    <span className="text-gray-600 font-light">{plan.period}</span>
                   </div>
+                  <p className="text-gray-600 font-light">{plan.description}</p>
                 </CardHeader>
-
-                <CardContent className="space-y-8 px-0">
-                  <ul className="space-y-4">
+                
+                <CardContent className="pt-0">
+                  <ul className="space-y-3 mb-8">
                     {plan.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-center space-x-4">
-                        <div className="flex-shrink-0 w-6 h-6 bg-ignis-gradient rounded-full flex items-center justify-center">
-                          <CheckIcon className="h-4 w-4 text-white" />
-                        </div>
-                        <span className="font-opensans text-slate-700 text-lg">{feature}</span>
+                      <li key={featureIndex} className="flex items-start">
+                        <Check className="h-5 w-5 text-ignis-purple mr-3 mt-0.5 flex-shrink-0" />
+                        <span className="font-light text-gray-700">{feature}</span>
                       </li>
                     ))}
                   </ul>
-
+                  
                   <Button 
-                    className={`w-full font-roboto text-lg h-14 rounded-xl ${
-                      plan.popular 
-                        ? 'bg-ignis-gradient hover:opacity-90 text-white shadow-xl shadow-ignis-purple/30 animate-glow' 
-                        : 'bg-slate-900 hover:bg-slate-800 text-white shadow-lg'
-                    }`}
+                    className={`
+                      w-full font-light
+                      ${plan.popular 
+                        ? 'bg-ignis-gradient hover:opacity-90 text-white' 
+                        : 'border border-gray-300 bg-white hover:bg-gray-50 text-gray-900'
+                      }
+                    `}
+                    variant={plan.popular ? "default" : "outline"}
                   >
-                    {plan.popular ? 'Start Igniting' : 'Get Started'}
+                    Choose Plan
                   </Button>
                 </CardContent>
-              </div>
-            </Card>
+              </Card>
+            </motion.div>
           ))}
         </div>
 
-        <div className="text-center mt-16">
-          <p className="font-opensans text-slate-600 mb-6 text-lg">
-            All plans include device protection, nationwide coverage, and no hidden fees
-          </p>
-          <Button variant="outline" className="font-roboto px-8 py-4 text-lg rounded-xl border-2 border-slate-200 hover:border-ignis-purple/40">
-            Compare All Features
-          </Button>
-        </div>
+        {/* Data Plans */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.5 }}
+          className="text-center"
+        >
+          <h3 className="text-2xl font-light text-gray-900 mb-8">Data Plans</h3>
+          <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+            {dataPlanss.map((plan, index) => (
+              <Card key={index} className="border-0 shadow-md hover:shadow-lg transition-shadow">
+                <CardContent className="p-6 text-center">
+                  <h4 className="text-xl font-light text-gray-900 mb-2">{plan.name}</h4>
+                  <div className="text-2xl font-light text-gray-900 mb-2">{plan.price}/month</div>
+                  <p className="text-gray-600 font-light mb-2">{plan.description}</p>
+                  <div className="text-ignis-purple font-light">{plan.data}</div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   );

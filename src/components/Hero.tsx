@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
@@ -86,8 +85,8 @@ const Hero = () => {
               >
                 <Sparkles className="h-6 w-6" />
               </motion.div>
-              <span className="font-roboto font-medium text-lg tracking-wide uppercase">
-                Next-Gen Mobile Experience
+              <span className="font-light text-lg tracking-wide uppercase">
+                T-Mobile Network • MVNO Excellence
               </span>
             </motion.div>
             
@@ -96,16 +95,16 @@ const Hero = () => {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.4 }}
             >
-              <h1 className="text-6xl lg:text-8xl font-poppins font-black leading-[0.85] tracking-tighter text-white">
+              <h1 className="text-6xl lg:text-8xl font-light leading-[0.85] tracking-tighter text-white">
                 Ignite your
                 <motion.span 
-                  className="block bg-ignis-gradient bg-clip-text text-transparent bg-[length:200%_200%]"
+                  className="block bg-ignis-gradient bg-clip-text text-transparent bg-[length:200%_200%] font-normal"
                   animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
                   transition={{ duration: 3, repeat: Infinity }}
                 >
-                  future
+                  lifestyle
                 </motion.span>
-                <span className="block text-gray-300">today</span>
+                <span className="block text-gray-300 font-light">today</span>
               </h1>
             </motion.div>
             
@@ -113,10 +112,10 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.6 }}
-              className="text-xl lg:text-2xl font-opensans text-gray-300 leading-relaxed max-w-2xl font-light"
+              className="text-xl lg:text-2xl text-gray-300 leading-relaxed max-w-2xl font-light"
             >
-              Revolutionary mobile technology that adapts to your lifestyle. 
-              AI-powered plans, quantum-encrypted security, and community-driven innovation.
+              Ignis Mobile was born from a desire to create a mobile experience as vibrant and dynamic as the passions that drive you. 
+              We believe technology should ignite your life, not constrain it.
             </motion.p>
 
             <motion.div
@@ -135,7 +134,7 @@ const Hero = () => {
                   >
                     <Button 
                       size="lg" 
-                      className="relative overflow-hidden bg-ignis-gradient hover:opacity-90 text-white font-roboto px-12 py-6 text-lg h-auto rounded-2xl shadow-2xl group"
+                      className="relative overflow-hidden bg-ignis-gradient hover:opacity-90 text-white font-light px-12 py-6 text-lg h-auto rounded-2xl shadow-2xl group"
                     >
                       <motion.div
                         className="absolute inset-0 bg-white"
@@ -160,14 +159,14 @@ const Hero = () => {
                 <Button 
                   size="lg" 
                   variant="outline" 
-                  className="font-roboto px-12 py-6 text-lg h-auto rounded-2xl border-2 border-gray-600 bg-transparent text-white hover:bg-white hover:text-black transition-all duration-300"
+                  className="font-light px-12 py-6 text-lg h-auto rounded-2xl border-2 border-gray-600 bg-transparent text-white hover:bg-white hover:text-black transition-all duration-300"
                 >
-                  View Demo
+                  Join Waitlist
                 </Button>
               </motion.div>
             </motion.div>
 
-            {/* Enhanced Stats with animations */}
+            {/* Enhanced Stats */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -175,9 +174,9 @@ const Hero = () => {
               className="flex flex-wrap gap-12 pt-12"
             >
               {[
-                { value: "99.9%", label: "Uptime", suffix: "" },
-                { value: "5G", label: "Ultra Speed", suffix: "+" },
-                { value: "24/7", label: "AI Support", suffix: "" }
+                { value: "T-Mobile", label: "Network", suffix: "" },
+                { value: "8", label: "Lifestyle Segments", suffix: "" },
+                { value: "24/7", label: "Support", suffix: "" }
               ].map((stat, index) => (
                 <motion.div
                   key={index}
@@ -185,14 +184,14 @@ const Hero = () => {
                   className="text-center cursor-pointer"
                 >
                   <motion.div 
-                    className="text-4xl lg:text-5xl font-poppins font-black bg-ignis-gradient bg-clip-text text-transparent"
+                    className="text-4xl lg:text-5xl font-light bg-ignis-gradient bg-clip-text text-transparent"
                     initial={{ scale: 0 }}
                     animate={inView ? { scale: 1 } : {}}
                     transition={{ delay: 1.2 + index * 0.1, type: "spring" }}
                   >
                     {stat.value}{stat.suffix}
                   </motion.div>
-                  <div className="font-opensans text-gray-400 font-medium tracking-wide text-sm">
+                  <div className="text-gray-400 font-light tracking-wide text-sm">
                     {stat.label}
                   </div>
                 </motion.div>
@@ -200,7 +199,7 @@ const Hero = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right Content - 3D Phone with Holographic Effects */}
+          {/* Right Content - 3D Phone */}
           <motion.div
             style={{ y: y2 }}
             className="relative flex justify-center"

@@ -11,7 +11,7 @@ const Header = () => {
       {/* Top bar with service categories */}
       <div className="bg-gray-100 border-b border-gray-200">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="flex items-center justify-start h-10 space-x-8 text-sm font-roboto text-gray-700">
+          <div className="flex items-center justify-start h-10 space-x-8 text-sm font-light text-gray-700">
             <a href="#" className="hover:text-ignis-purple transition-colors">PULSEOS</a>
             <a href="#" className="hover:text-ignis-purple transition-colors">BUSINESS</a>
             <a href="#" className="hover:text-ignis-purple transition-colors">BRING YOUR OWN DEVICE</a>
@@ -23,17 +23,9 @@ const Header = () => {
       {/* Main header */}
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <div className="flex items-center space-x-2">
-            <div className="relative">
-              <div className="w-8 h-8 bg-ignis-gradient rounded-lg flex items-center justify-center">
-                <div className="w-2 h-2 bg-ignis-orange rounded-full animate-flame-pulse"></div>
-              </div>
-              <div className="absolute -top-1 -right-1 w-3 h-3 text-ignis-orange">
-                🔥
-              </div>
-            </div>
-            <span className="text-2xl font-poppins font-bold bg-ignis-gradient bg-clip-text text-transparent">
+          {/* Brand Text Only */}
+          <div className="flex items-center">
+            <span className="text-2xl font-light text-gray-900">
               Ignis Mobile
             </span>
           </div>
@@ -41,23 +33,23 @@ const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
             <div className="flex items-center space-x-1 cursor-pointer hover:text-ignis-purple transition-colors">
-              <span className="font-roboto text-gray-900">Plans</span>
+              <span className="font-light text-gray-900">Plans</span>
               <ChevronDown size={16} />
             </div>
             <div className="flex items-center space-x-1 cursor-pointer hover:text-ignis-purple transition-colors">
-              <span className="font-roboto text-gray-900">Devices</span>
+              <span className="font-light text-gray-900">Devices</span>
               <ChevronDown size={16} />
             </div>
             <div className="flex items-center space-x-1 cursor-pointer hover:text-ignis-purple transition-colors">
-              <span className="font-roboto text-gray-900">Deals</span>
+              <span className="font-light text-gray-900">Deals</span>
               <ChevronDown size={16} />
             </div>
             <div className="flex items-center space-x-1 cursor-pointer hover:text-ignis-purple transition-colors">
-              <span className="font-roboto text-gray-900">Coverage</span>
+              <span className="font-light text-gray-900">Coverage</span>
               <ChevronDown size={16} />
             </div>
             <div className="flex items-center space-x-1 cursor-pointer hover:text-ignis-purple transition-colors">
-              <span className="font-roboto text-gray-900">Join Us</span>
+              <span className="font-light text-gray-900">Join Us</span>
               <ChevronDown size={16} />
             </div>
           </nav>
@@ -66,20 +58,20 @@ const Header = () => {
           <div className="hidden lg:flex items-center space-x-4 ml-auto">
             <div className="flex items-center space-x-1 text-gray-700 hover:text-ignis-purple transition-colors cursor-pointer">
               <MapPin size={18} />
-              <span className="font-roboto text-sm">Find a store</span>
+              <span className="font-light text-sm">Find a store</span>
             </div>
             <div className="flex items-center space-x-1 text-gray-700 hover:text-ignis-purple transition-colors cursor-pointer">
               <MessageCircle size={18} />
-              <span className="font-roboto text-sm">Contact & support</span>
+              <span className="font-light text-sm">Contact & support</span>
               <ChevronDown size={14} />
             </div>
             <div className="flex items-center space-x-1 text-gray-700 hover:text-ignis-purple transition-colors cursor-pointer">
               <ShoppingCart size={18} />
-              <span className="font-roboto text-sm">Cart</span>
+              <span className="font-light text-sm">Cart</span>
             </div>
             <Search size={18} className="text-gray-700 hover:text-ignis-purple transition-colors cursor-pointer" />
             <div className="flex items-center space-x-1 cursor-pointer">
-              <Button className="bg-ignis-gradient hover:opacity-90 text-white font-roboto px-4 py-2 text-sm">
+              <Button className="bg-ignis-gradient hover:opacity-90 text-white font-light px-4 py-2 text-sm">
                 <User size={16} className="mr-2" />
                 My account
                 <ChevronDown size={14} className="ml-1" />
@@ -102,14 +94,14 @@ const Header = () => {
         {isMenuOpen && (
           <div className="lg:hidden py-4 border-t border-gray-200 bg-white">
             <nav className="flex flex-col space-y-4">
-              <a href="#plans" className="font-roboto text-gray-700">Plans</a>
-              <a href="#devices" className="font-roboto text-gray-700">Devices</a>
-              <a href="#deals" className="font-roboto text-gray-700">Deals</a>
-              <a href="#coverage" className="font-roboto text-gray-700">Coverage</a>
-              <a href="#join" className="font-roboto text-gray-700">Join Us</a>
+              <a href="#plans" className="font-light text-gray-700">Plans</a>
+              <a href="#devices" className="font-light text-gray-700">Devices</a>
+              <a href="#deals" className="font-light text-gray-700">Deals</a>
+              <a href="#coverage" className="font-light text-gray-700">Coverage</a>
+              <a href="#join" className="font-light text-gray-700">Join Us</a>
               <div className="flex flex-col space-y-2 pt-4">
-                <Button variant="outline" className="font-roboto">Find a store</Button>
-                <Button className="bg-ignis-gradient text-white font-roboto">My account</Button>
+                <Button variant="outline" className="font-light">Find a store</Button>
+                <Button className="bg-ignis-gradient text-white font-light">My account</Button>
               </div>
             </nav>
           </div>
