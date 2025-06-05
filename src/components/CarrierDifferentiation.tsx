@@ -1,7 +1,8 @@
 
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { Shield, Users, Zap, Heart } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Wifi, Users, Headphones, Shield } from "lucide-react";
 
 const CarrierDifferentiation = () => {
   const { ref, inView } = useInView({ 
@@ -9,30 +10,30 @@ const CarrierDifferentiation = () => {
     rootMargin: '-10% 0px'
   });
 
-  const differentiators = [
+  const features = [
     {
-      icon: Heart,
-      title: "Lifestyle-Centric Curation",
-      description: "While companies like Mint Mobile and Tello focus primarily on low-cost service, we craft a mobile ecosystem deeply integrated with your individual lifestyle.",
-      detail: "We don't offer one-size-fits-all solutions. We cater to you – our 8 distinct lifestyle segments – with carefully curated device bundles."
+      icon: Wifi,
+      title: "5G Network Excellence",
+      description: "Powered by nationwide 5G infrastructure, delivering reliable connectivity across the country.",
+      details: "Experience premium network quality with our unique lifestyle-focused approach to mobile connectivity."
     },
     {
       icon: Users,
-      title: "Community & Connection",
-      description: "We're not just selling products; we're building a community around shared passions.",
-      detail: "We foster a space where users connect, share experiences, and inspire each other through their mobile lifestyle journey."
+      title: "Lifestyle Segments",
+      description: "Eight carefully curated lifestyle segments designed around how you actually live.",
+      details: "From adventurers to creators, each segment gets devices and plans tailored to their unique needs."
     },
     {
-      icon: Zap,
-      title: "T-Mobile Network Excellence", 
-      description: "Powered by T-Mobile's nationwide 5G network, delivering reliable connectivity across the country.",
-      detail: "As a trusted T-Mobile MVNO partner, we provide the same network quality with our unique lifestyle-focused approach."
+      icon: Headphones,
+      title: "Premium Support",
+      description: "Dedicated support that understands your lifestyle and mobile needs.",
+      details: "Get help from experts who know your segment and can provide personalized recommendations."
     },
     {
       icon: Shield,
-      title: "Value Beyond Price Point",
-      description: "While competitive pricing is important, we prioritize value – delivering premium experiences and curated selections.",
-      detail: "Our 6-month service plans aren't just deals; they're investments in your mobile freedom with carefully selected accessories."
+      title: "Device Protection",
+      description: "Comprehensive protection plans designed for active lifestyles.",
+      details: "From rugged cases to insurance coverage, we protect what matters most to your mobile experience."
     }
   ];
 
@@ -49,39 +50,42 @@ const CarrierDifferentiation = () => {
           <h2 className="text-4xl lg:text-6xl font-light text-gray-900 mb-6">
             More Than Just <span className="font-normal">Connectivity</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-4xl mx-auto font-light">
-            Ignis Mobile isn't just about connectivity; we're about empowering you to live your passions. 
-            Here's what sets us apart from traditional mobile providers.
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto font-light">
+            We're redefining what it means to be a mobile carrier by putting your lifestyle first
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12">
-          {differentiators.map((item, index) => (
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {features.map((feature, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.1 * index, duration: 0.5 }}
-              className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300"
             >
-              <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0">
-                  <div className="w-12 h-12 bg-ignis-gradient rounded-xl flex items-center justify-center">
-                    <item.icon className="h-6 w-6 text-white" />
-                  </div>
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-xl font-medium text-gray-900 mb-3">
-                    {item.title}
+              <Card className="h-full border-0 shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer">
+                <CardContent className="p-8 text-center">
+                  <motion.div
+                    className="inline-flex items-center justify-center w-16 h-16 bg-ignis-gradient rounded-full mb-6 group-hover:scale-110 transition-transform duration-300"
+                    whileHover={{ rotate: 360 }}
+                    transition={{ duration: 0.6 }}
+                  >
+                    <feature.icon className="h-8 w-8 text-white" />
+                  </motion.div>
+                  
+                  <h3 className="text-xl font-light text-gray-900 mb-4">
+                    {feature.title}
                   </h3>
+                  
                   <p className="text-gray-600 font-light mb-4 leading-relaxed">
-                    {item.description}
+                    {feature.description}
                   </p>
+                  
                   <p className="text-sm text-gray-500 font-light leading-relaxed">
-                    {item.detail}
+                    {feature.details}
                   </p>
-                </div>
-              </div>
+                </CardContent>
+              </Card>
             </motion.div>
           ))}
         </div>
