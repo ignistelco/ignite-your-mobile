@@ -121,7 +121,10 @@ const LifestyleCuration = () => {
               >
                 <div>
                   <div className="flex items-center space-x-3 mb-4">
-                    <lifestyles[activeLifestyle].icon className="h-8 w-8 text-ignis-purple" />
+                    {(() => {
+                      const IconComponent = lifestyles[activeLifestyle].icon;
+                      return <IconComponent className="h-8 w-8 text-ignis-purple" />;
+                    })()}
                     <h3 className="text-3xl font-light text-gray-900">
                       {lifestyles[activeLifestyle].title}
                     </h3>
