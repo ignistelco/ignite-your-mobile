@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
@@ -86,7 +87,7 @@ const Hero = () => {
                 <Sparkles className="h-6 w-6" />
               </motion.div>
               <span className="font-light text-lg tracking-wide uppercase">
-                T-Mobile Network • MVNO Excellence
+                Lifestyle-First Mobile Experience
               </span>
             </motion.div>
             
@@ -174,9 +175,9 @@ const Hero = () => {
               className="flex flex-wrap gap-12 pt-12"
             >
               {[
-                { value: "T-Mobile", label: "Network", suffix: "" },
+                { value: "5G", label: "Network Ready", suffix: "" },
                 { value: "8", label: "Lifestyle Segments", suffix: "" },
-                { value: "24/7", label: "Support", suffix: "" }
+                { value: "Premium", label: "Device Curation", suffix: "" }
               ].map((stat, index) => (
                 <motion.div
                   key={index}
