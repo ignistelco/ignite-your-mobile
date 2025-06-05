@@ -303,7 +303,7 @@ const Hero = () => {
                             Ignis Mobile
                           </motion.div>
                           <div className="font-opensans text-lg opacity-90 font-light tracking-wide mt-2">
-                            AI-Powered Network
+                            Lifestyle Powered Network
                           </div>
                         </div>
                         
