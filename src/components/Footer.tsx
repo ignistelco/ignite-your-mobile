@@ -14,7 +14,7 @@ const Footer = () => {
         </div>
 
         {/* Main Footer Content */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
           
           {/* Brand */}
           <div className="space-y-4">
@@ -26,6 +26,18 @@ const Footer = () => {
             <p className="font-light text-gray-600 max-w-xs">
               Redefining mobile experiences with passion, innovation, and community at the heart of everything we do.
             </p>
+          </div>
+
+          {/* Shop */}
+          <div className="space-y-4">
+            <h3 className="font-normal text-lg text-gray-800">Shop</h3>
+            <ul className="space-y-2 font-light text-gray-600">
+              <li><a href="#" className="hover:text-gray-800 transition-colors">Plans</a></li>
+              <li><a href="#" className="hover:text-gray-800 transition-colors">Devices</a></li>
+              <li><a href="#" className="hover:text-gray-800 transition-colors">BYOD</a></li>
+              <li><a href="#" className="hover:text-gray-800 transition-colors">International Calling</a></li>
+              <li><a href="#" className="hover:text-gray-800 transition-colors">Deals</a></li>
+            </ul>
           </div>
 
           {/* Switch to Ignis */}
@@ -40,13 +52,29 @@ const Footer = () => {
             </ul>
           </div>
 
+          {/* Join Us */}
+          <div className="space-y-4">
+            <h3 className="font-normal text-lg text-gray-800">Join Us</h3>
+            <ul className="space-y-2 font-light text-gray-600">
+              <li><a href="#" className="hover:text-gray-800 transition-colors">Franchise Retailer</a></li>
+              <li><a href="#" className="hover:text-gray-800 transition-colors">Affiliate Marketing Program</a></li>
+              <li><a href="#" className="hover:text-gray-800 transition-colors">Influencer Program</a></li>
+              <li><a href="#" className="hover:text-gray-800 transition-colors">Pre-order PulseOS Devices</a></li>
+            </ul>
+          </div>
+
           {/* Legal */}
           <div className="space-y-4">
-            <div className="space-y-2 font-light text-gray-600">
-              <a href="#" className="block hover:text-gray-800 transition-colors">Privacy Policy</a>
-              <a href="#" className="block hover:text-gray-800 transition-colors">Return Policy</a>
-              <a href="#" className="block hover:text-gray-800 transition-colors">Terms of Service</a>
-            </div>
+            <h3 className="font-normal text-lg text-gray-800">Legal</h3>
+            <ul className="space-y-2 font-light text-gray-600">
+              <li><a href="#" className="hover:text-gray-800 transition-colors">General Terms & Conditions</a></li>
+              <li><a href="#" className="hover:text-gray-800 transition-colors">Acceptable Use Policy</a></li>
+              <li><a href="#" className="hover:text-gray-800 transition-colors">Product Terms</a></li>
+              <li><a href="#" className="hover:text-gray-800 transition-colors">Social Media Terms of Service</a></li>
+              <li><a href="#" className="hover:text-gray-800 transition-colors">Privacy Notice</a></li>
+              <li><a href="#" className="hover:text-gray-800 transition-colors">Phone Return Policy</a></li>
+              <li><a href="#" className="hover:text-gray-800 transition-colors">30 Day Money Back Guarantee</a></li>
+            </ul>
           </div>
         </div>
 

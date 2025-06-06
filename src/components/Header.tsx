@@ -11,11 +11,18 @@ const Header = () => {
       {/* Top bar with service categories */}
       <div className="bg-gray-100 border-b border-gray-200">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="flex items-center justify-start h-10 space-x-8 text-sm font-light text-gray-700">
-            <a href="#" className="hover:text-ignis-purple transition-colors">PULSEOS</a>
-            <a href="#" className="hover:text-ignis-purple transition-colors">BUSINESS</a>
-            <a href="#" className="hover:text-ignis-purple transition-colors">BRING YOUR OWN DEVICE</a>
-            <a href="#" className="hover:text-ignis-purple transition-colors">INTERNET</a>
+          <div className="flex items-center justify-between h-10">
+            <div className="flex items-center space-x-8 text-sm font-light text-gray-700">
+              <a href="#" className="hover:text-ignis-purple transition-colors">PULSEOS</a>
+              <a href="#" className="hover:text-ignis-purple transition-colors">BUSINESS</a>
+              <a href="#" className="hover:text-ignis-purple transition-colors">BRING YOUR OWN DEVICE</a>
+              <a href="#" className="hover:text-ignis-purple transition-colors">INTERNET</a>
+            </div>
+            
+            {/* Phone number - far right */}
+            <div className="text-sm font-light text-gray-700">
+              844-MY-IGNIS
+            </div>
           </div>
         </div>
       </div>
