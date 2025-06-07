@@ -3,12 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Check, Star } from "lucide-react";
-import { useState } from "react";
-import PlanModal from "./PlanModal";
 
 const PlansSection = () => {
-  const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
-
   const plans = [
     {
       id: "connect",
@@ -67,108 +63,104 @@ const PlansSection = () => {
     }
   ];
 
+  const handlePlanSelect = (planId: string) => {
+    console.log(`Selected plan: ${planId}`);
+    // Plan selection logic can be added here
+  };
+
   return (
-    <>
-      <section className="py-24 bg-gray-50">
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-light text-gray-900 mb-6">
-              Choose Your Perfect Plan
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              All plans include unlimited talk & text with no annual contracts. 
-              Switch or cancel anytime.
-            </p>
-          </div>
+    <section className="py-24 bg-gray-50">
+      <div className="container mx-auto px-4 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-light text-gray-900 mb-6">
+            Choose Your Perfect Plan
+          </h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            All plans include unlimited talk & text with no annual contracts. 
+            Switch or cancel anytime.
+          </p>
+        </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {plans.map((plan) => (
-              <Card 
-                key={plan.id} 
-                className={`relative overflow-hidden transition-all duration-300 hover:shadow-2xl ${
-                  plan.id === 'go' ? 'scale-105 border-2 border-green-500' : 'hover:scale-105'
-                }`}
-              >
-                {plan.badge && (
-                  <div className="absolute top-4 right-4">
-                    <Badge className={`${plan.badgeColor} text-white`}>
-                      {plan.badge}
-                    </Badge>
-                  </div>
-                )}
+        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {plans.map((plan) => (
+            <Card 
+              key={plan.id} 
+              className={`relative overflow-hidden transition-all duration-300 hover:shadow-2xl ${
+                plan.id === 'go' ? 'scale-105 border-2 border-green-500' : 'hover:scale-105'
+              }`}
+            >
+              {plan.badge && (
+                <div className="absolute top-4 right-4">
+                  <Badge className={`${plan.badgeColor} text-white`}>
+                    {plan.badge}
+                  </Badge>
+                </div>
+              )}
+              
+              <CardHeader className="text-center pb-4">
+                <CardTitle className="text-2xl font-light text-gray-900">
+                  {plan.name}
+                </CardTitle>
+                <CardDescription className="text-gray-600">
+                  {plan.tagline}
+                </CardDescription>
                 
-                <CardHeader className="text-center pb-4">
-                  <CardTitle className="text-2xl font-light text-gray-900">
-                    {plan.name}
-                  </CardTitle>
-                  <CardDescription className="text-gray-600">
-                    {plan.tagline}
-                  </CardDescription>
-                  
-                  <div className="pt-4">
-                    <div className="flex items-center justify-center gap-2">
-                      <span className="text-4xl font-light text-gray-900">
-                        ${plan.price}
-                      </span>
-                      <div className="text-left">
-                        <div className="text-sm text-gray-500 line-through">
-                          ${plan.originalPrice}
-                        </div>
-                        <div className="text-sm text-gray-600">/month</div>
+                <div className="pt-4">
+                  <div className="flex items-center justify-center gap-2">
+                    <span className="text-4xl font-light text-gray-900">
+                      ${plan.price}
+                    </span>
+                    <div className="text-left">
+                      <div className="text-sm text-gray-500 line-through">
+                        ${plan.originalPrice}
                       </div>
-                    </div>
-                    <div className="text-sm text-green-600 font-medium mt-1">
-                      Save ${plan.savings}/month
+                      <div className="text-sm text-gray-600">/month</div>
                     </div>
                   </div>
-                </CardHeader>
+                  <div className="text-sm text-green-600 font-medium mt-1">
+                    Save ${plan.savings}/month
+                  </div>
+                </div>
+              </CardHeader>
 
-                <CardContent className="px-6">
-                  <ul className="space-y-3">
-                    {plan.features.map((feature, index) => (
-                      <li key={index} className="flex items-center gap-3">
-                        <Check className="h-5 w-5 text-green-500 flex-shrink-0" />
-                        <span className="text-gray-700">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
+              <CardContent className="px-6">
+                <ul className="space-y-3">
+                  {plan.features.map((feature, index) => (
+                    <li key={index} className="flex items-center gap-3">
+                      <Check className="h-5 w-5 text-green-500 flex-shrink-0" />
+                      <span className="text-gray-700">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
 
-                <CardFooter className="px-6 pt-4">
-                  <Button 
-                    className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-medium"
-                    onClick={() => setSelectedPlan(plan.id)}
-                  >
-                    Choose {plan.name}
-                  </Button>
-                </CardFooter>
-              </Card>
+              <CardFooter className="px-6 pt-4">
+                <Button 
+                  className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-medium"
+                  onClick={() => handlePlanSelect(plan.id)}
+                >
+                  Choose {plan.name}
+                </Button>
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
+
+        <div className="text-center mt-12">
+          <p className="text-gray-600 mb-4">
+            All plans include our 30-day money-back guarantee
+          </p>
+          <div className="flex items-center justify-center gap-1 text-yellow-500">
+            {[...Array(5)].map((_, i) => (
+              <Star key={i} className="h-5 w-5 fill-current" />
             ))}
-          </div>
-
-          <div className="text-center mt-12">
-            <p className="text-gray-600 mb-4">
-              All plans include our 30-day money-back guarantee
-            </p>
-            <div className="flex items-center justify-center gap-1 text-yellow-500">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="h-5 w-5 fill-current" />
-              ))}
-              <span className="ml-2 text-gray-600">
-                Rated 4.8/5 by our customers
-              </span>
-            </div>
+            <span className="ml-2 text-gray-600">
+              Rated 4.8/5 by our customers
+            </span>
           </div>
         </div>
-      </section>
-
-      {selectedPlan && (
-        <PlanModal 
-          planId={selectedPlan}
-          onClose={() => setSelectedPlan(null)}
-        />
-      )}
-    </>
+      </div>
+    </section>
   );
 };
 
