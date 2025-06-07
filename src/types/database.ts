@@ -1,3 +1,4 @@
+
 export interface User {
   id: string;
   gigs_user_id?: string;
@@ -295,17 +296,6 @@ export interface IdempotencyKey {
   response?: Record<string, any>;
   status: string;
   expires_at: string;
-  created_at?: string;
-  updated_at?: string;
-}
-
-export interface NewsletterSubscriber {
-  id: string;
-  email: string;
-  is_active: boolean;
-  subscribed_at?: string;
-  unsubscribed_at?: string;
-  metadata?: Record<string, any>;
   created_at?: string;
   updated_at?: string;
 }

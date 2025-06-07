@@ -1,158 +1,195 @@
 
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Check, Star } from "lucide-react";
+import { Check } from "lucide-react";
 
 const PlansSection = () => {
+  const { ref, inView } = useInView({ 
+    triggerOnce: true,
+    rootMargin: '-10% 0px'
+  });
+
   const plans = [
     {
-      id: "connect",
-      name: "Connect",
-      tagline: "Stay connected with essential coverage",
-      price: 25,
-      originalPrice: 35,
-      savings: 10,
+      name: "Ignis Connect",
+      price: "$15",
+      period: "/month",
+      description: "Perfect for essential connectivity",
       features: [
-        "Unlimited talk & text",
-        "5GB high-speed data",
-        "Mobile hotspot included",
-        "Nationwide coverage",
-        "5G access where available"
+        "5GB High-Speed Data",
+        "Unlimited Talk & Text",
+        "T-Mobile Network",
+        "Mobile Hotspot",
+        "Basic Support"
       ],
-      badge: "Popular",
-      badgeColor: "bg-blue-500"
+      popular: false,
+      gradient: "from-gray-50 to-gray-100"
     },
     {
-      id: "go",
-      name: "Go",
-      tagline: "Perfect for active lifestyles",
-      price: 35,
-      originalPrice: 45,
-      savings: 10,
+      name: "Ignis Go",
+      price: "$25",
+      period: "/month",
+      description: "Ideal for everyday power users",
       features: [
-        "Unlimited talk & text",
-        "15GB high-speed data",
-        "Mobile hotspot included",
-        "Nationwide coverage",
-        "5G access where available",
-        "International texting"
+        "15GB High-Speed Data",
+        "Unlimited Talk & Text",
+        "T-Mobile 5G Network",
+        "10GB Mobile Hotspot",
+        "Priority Support",
+        "International Texting"
       ],
-      badge: "Best Value",
-      badgeColor: "bg-green-500"
+      popular: true,
+      gradient: "from-ignis-purple/5 to-ignis-teal/5"
     },
     {
-      id: "ultimate",
-      name: "Ultimate",
-      tagline: "Unlimited everything for power users",
-      price: 45,
-      originalPrice: 55,
-      savings: 10,
+      name: "Ignis Ultimate",
+      price: "$35",
+      period: "/month",
+      description: "Maximum performance for creators",
       features: [
-        "Unlimited talk & text",
-        "Unlimited high-speed data",
-        "Unlimited mobile hotspot",
-        "Nationwide coverage",
-        "Premium 5G access",
-        "International calling & texting",
-        "HD video streaming",
-        "Mobile security suite"
+        "Unlimited High-Speed Data",
+        "Unlimited Talk & Text",
+        "T-Mobile 5G Ultra",
+        "Unlimited Mobile Hotspot",
+        "Premium Support",
+        "International Calling",
+        "Device Protection"
       ],
-      badge: "Premium",
-      badgeColor: "bg-purple-500"
+      popular: false,
+      gradient: "from-ignis-orange/5 to-ignis-purple/5"
+    }
+  ];
+
+  const dataPlanss = [
+    {
+      name: "Data Go",
+      price: "$10",
+      description: "For tablets & watches",
+      data: "5GB"
+    },
+    {
+      name: "Data Connect",
+      price: "$50",
+      description: "Home internet solution",
+      data: "100GB"
     }
   ];
 
   return (
-    <section className="py-24 bg-gray-50">
-      <div className="container mx-auto px-4 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-light text-gray-900 mb-6">
-            Choose Your Perfect Plan
+    <section className="py-20 bg-white">
+      <div className="container mx-auto px-6 lg:px-12">
+        <motion.div
+          ref={ref}
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl lg:text-6xl font-light text-gray-900 mb-6">
+            <span className="font-normal">Plans</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            All plans include unlimited talk & text with no annual contracts. 
-            Switch or cancel anytime.
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto font-light mb-8">
+            Ignis Mobile: Where Connectivity Sparks Adventure
           </p>
-        </div>
+          
+          {/* Plan Duration Options */}
+          <div className="flex justify-center space-x-2 mb-12">
+            {["6 months", "12 months", "24 months"].map((duration) => (
+              <Button
+                key={duration}
+                variant="outline"
+                className="border-gray-200 hover:border-ignis-purple hover:text-ignis-purple font-light"
+              >
+                {duration}
+              </Button>
+            ))}
+          </div>
+        </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {plans.map((plan) => (
-            <Card 
-              key={plan.id} 
-              className={`relative overflow-hidden transition-all duration-300 hover:shadow-2xl ${
-                plan.id === 'go' ? 'scale-105 border-2 border-green-500' : 'hover:scale-105'
-              }`}
+        {/* Main Plans */}
+        <div className="grid md:grid-cols-3 gap-8 mb-16">
+          {plans.map((plan, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.1 * index, duration: 0.5 }}
+              className="relative"
             >
-              {plan.badge && (
-                <div className="absolute top-4 right-4">
-                  <Badge className={`${plan.badgeColor} text-white`}>
-                    {plan.badge}
-                  </Badge>
-                </div>
+              {plan.popular && (
+                <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-ignis-gradient text-white z-10">
+                  Most Popular
+                </Badge>
               )}
               
-              <CardHeader className="text-center pb-4">
-                <CardTitle className="text-2xl font-light text-gray-900">
-                  {plan.name}
-                </CardTitle>
-                <CardDescription className="text-gray-600">
-                  {plan.tagline}
-                </CardDescription>
+              <Card className={`
+                h-full border-0 shadow-lg hover:shadow-2xl transition-all duration-300
+                ${plan.popular ? 'ring-2 ring-ignis-purple/20 scale-105' : ''}
+                bg-gradient-to-br ${plan.gradient}
+              `}>
+                <CardHeader className="text-center pb-4">
+                  <CardTitle className="text-2xl font-light text-gray-900">
+                    {plan.name}
+                  </CardTitle>
+                  <div className="flex items-center justify-center">
+                    <span className="text-4xl font-light text-gray-900">{plan.price}</span>
+                    <span className="text-gray-600 font-light">{plan.period}</span>
+                  </div>
+                  <p className="text-gray-600 font-light">{plan.description}</p>
+                </CardHeader>
                 
-                <div className="pt-4">
-                  <div className="flex items-center justify-center gap-2">
-                    <span className="text-4xl font-light text-gray-900">
-                      ${plan.price}
-                    </span>
-                    <div className="text-left">
-                      <div className="text-sm text-gray-500 line-through">
-                        ${plan.originalPrice}
-                      </div>
-                      <div className="text-sm text-gray-600">/month</div>
-                    </div>
-                  </div>
-                  <div className="text-sm text-green-600 font-medium mt-1">
-                    Save ${plan.savings}/month
-                  </div>
-                </div>
-              </CardHeader>
-
-              <CardContent className="px-6">
-                <ul className="space-y-3">
-                  {plan.features.map((feature, index) => (
-                    <li key={index} className="flex items-center gap-3">
-                      <Check className="h-5 w-5 text-green-500 flex-shrink-0" />
-                      <span className="text-gray-700">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-
-              <CardFooter className="px-6 pt-4">
-                <Button 
-                  className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-medium"
-                >
-                  Choose {plan.name}
-                </Button>
-              </CardFooter>
-            </Card>
+                <CardContent className="pt-0">
+                  <ul className="space-y-3 mb-8">
+                    {plan.features.map((feature, featureIndex) => (
+                      <li key={featureIndex} className="flex items-start">
+                        <Check className="h-5 w-5 text-ignis-purple mr-3 mt-0.5 flex-shrink-0" />
+                        <span className="font-light text-gray-700">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  
+                  <Button 
+                    className={`
+                      w-full font-light
+                      ${plan.popular 
+                        ? 'bg-ignis-gradient hover:opacity-90 text-white' 
+                        : 'border border-gray-300 bg-white hover:bg-gray-50 text-gray-900'
+                      }
+                    `}
+                    variant={plan.popular ? "default" : "outline"}
+                  >
+                    Choose Plan
+                  </Button>
+                </CardContent>
+              </Card>
+            </motion.div>
           ))}
         </div>
 
-        <div className="text-center mt-12">
-          <p className="text-gray-600 mb-4">
-            All plans include our 30-day money-back guarantee
-          </p>
-          <div className="flex items-center justify-center gap-1 text-yellow-500">
-            {[...Array(5)].map((_, i) => (
-              <Star key={i} className="h-5 w-5 fill-current" />
+        {/* Data Plans */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.5 }}
+          className="text-center"
+        >
+          <h3 className="text-2xl font-light text-gray-900 mb-8">Data Plans</h3>
+          <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+            {dataPlanss.map((plan, index) => (
+              <Card key={index} className="border-0 shadow-md hover:shadow-lg transition-shadow">
+                <CardContent className="p-6 text-center">
+                  <h4 className="text-xl font-light text-gray-900 mb-2">{plan.name}</h4>
+                  <div className="text-2xl font-light text-gray-900 mb-2">{plan.price}/month</div>
+                  <p className="text-gray-600 font-light mb-2">{plan.description}</p>
+                  <div className="text-ignis-purple font-light">{plan.data}</div>
+                </CardContent>
+              </Card>
             ))}
-            <span className="ml-2 text-gray-600">
-              Rated 4.8/5 by our customers
-            </span>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

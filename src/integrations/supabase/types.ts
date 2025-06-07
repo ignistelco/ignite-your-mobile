@@ -380,39 +380,6 @@ export type Database = {
           },
         ]
       }
-      newsletter_subscribers: {
-        Row: {
-          created_at: string | null
-          email: string
-          id: string
-          is_active: boolean
-          metadata: Json | null
-          subscribed_at: string | null
-          unsubscribed_at: string | null
-          updated_at: string | null
-        }
-        Insert: {
-          created_at?: string | null
-          email: string
-          id?: string
-          is_active?: boolean
-          metadata?: Json | null
-          subscribed_at?: string | null
-          unsubscribed_at?: string | null
-          updated_at?: string | null
-        }
-        Update: {
-          created_at?: string | null
-          email?: string
-          id?: string
-          is_active?: boolean
-          metadata?: Json | null
-          subscribed_at?: string | null
-          unsubscribed_at?: string | null
-          updated_at?: string | null
-        }
-        Relationships: []
-      }
       orders: {
         Row: {
           created_at: string | null
