@@ -5,12 +5,16 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Check } from "lucide-react";
+import PlanModal from "@/components/PlanModal";
+import { useState } from "react";
 
 const PlansSection = () => {
   const { ref, inView } = useInView({ 
     triggerOnce: true,
     rootMargin: '-10% 0px'
   });
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const plans = [
     {
@@ -21,7 +25,7 @@ const PlansSection = () => {
       features: [
         "5GB High-Speed Data",
         "Unlimited Talk & Text",
-        "T-Mobile Network",
+        "Premium Network",
         "Mobile Hotspot",
         "Basic Support"
       ],
@@ -36,7 +40,7 @@ const PlansSection = () => {
       features: [
         "15GB High-Speed Data",
         "Unlimited Talk & Text",
-        "T-Mobile 5G Network",
+        "Premium 5G Network",
         "10GB Mobile Hotspot",
         "Priority Support",
         "International Texting"
@@ -52,7 +56,7 @@ const PlansSection = () => {
       features: [
         "Unlimited High-Speed Data",
         "Unlimited Talk & Text",
-        "T-Mobile 5G Ultra",
+        "Premium 5G Ultra",
         "Unlimited Mobile Hotspot",
         "Premium Support",
         "International Calling",
@@ -160,6 +164,7 @@ const PlansSection = () => {
                       }
                     `}
                     variant={plan.popular ? "default" : "outline"}
+                    onClick={() => setIsModalOpen(true)}
                   >
                     Choose Plan
                   </Button>
@@ -191,6 +196,23 @@ const PlansSection = () => {
           </div>
         </motion.div>
       </div>
+
+      {/* Plan Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-black/90 backdrop-blur-sm rounded-3xl max-w-6xl mx-4 max-h-[90vh] overflow-auto">
+            <div className="relative">
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="absolute top-4 right-4 text-white/70 hover:text-white text-2xl z-10"
+              >
+                ×
+              </button>
+              <PlanModal />
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
