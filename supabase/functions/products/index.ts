@@ -1,5 +1,4 @@
-
-import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+import { serve } from "https://deno.land/std@0.177.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
 
 const corsHeaders = {
@@ -9,7 +8,7 @@ const corsHeaders = {
 
 serve(async (req) => {
   if (req.method === "OPTIONS") {
-    return new Response(null, { headers: corsHeaders });
+    return new Response("ok", { headers: corsHeaders });
   }
 
   try {
@@ -21,30 +20,18 @@ serve(async (req) => {
     const { data: products, error } = await supabaseClient
       .from('products')
       .select(`
-        id,
-        name,
-        product_type,
-        product_variants (
-          id,
-          name,
-          price_amount,
-          currency,
-          stock_quantity,
-          sku
-        )
+        id, name, description, image_url,
+        product_variants ( id, name, sku, price_amount, currency, stock_quantity )
       `)
       .eq('is_active', true);
 
-    if (error) {
-      throw error;
-    }
+    if (error) throw error;
 
     return new Response(JSON.stringify({ products }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 200,
     });
   } catch (error) {
-    console.error('Error fetching products:', error);
     return new Response(JSON.stringify({ error: error.message }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 500,

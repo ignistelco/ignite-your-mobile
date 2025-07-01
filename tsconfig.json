@@ -7,7 +7,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "https://*": ["./node_modules/*"],
+      "https://deno.land/*": ["./node_modules/*"]
     },
     "noImplicitAny": false,
     "noUnusedParameters": false,
