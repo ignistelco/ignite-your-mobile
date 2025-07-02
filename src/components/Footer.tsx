@@ -87,7 +87,7 @@ const Footer = () => {
               <p className="font-light text-gray-600 mb-2">
                 © 2024 Ignis Mobile. All rights reserved.
               </p>
-              <a href="#" className="font-light text-gray-600 hover:text-gray-800 transition-colors text-sm">
+              <a href="/admin" className="font-light text-gray-600 hover:text-gray-800 transition-colors text-sm">
                 Admin Portal
               </a>
             </div>
