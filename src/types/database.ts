@@ -128,16 +128,14 @@ export interface GigsPlan {
   updated_at?: string;
 }
 
+// Updated to match actual database schema
 export interface ProductPlan {
-  id: string;
+  product_id: string;
   name: string;
   tagline?: string;
   features?: string[];
-  custom_price_amount?: number;
-  custom_price_currency?: string;
   is_active: boolean;
   gigs_plan_id?: string;
-  metadata?: Record<string, any>;
   created_at?: string;
   updated_at?: string;
 }
@@ -211,18 +209,30 @@ export interface Quote {
   updated_at?: string;
 }
 
+// Updated to match actual database schema
 export interface Order {
-  id: string;
+  order_id: string;
   user_id: string;
-  quote_id?: string;
-  product_plan_id?: string;
-  product_addon_ids?: string[];
+  cart_id?: string;
+  purchased_plan_product_id: string;
+  purchased_device_product_id?: string;
+  purchased_device_variant_id?: string;
+  purchased_plan_term_months?: number;
+  purchased_addon_product_ids?: string[];
   voucher_id?: string;
   gigs_subscription_id?: string;
-  square_order_id?: string;
+  stripe_payment_intent_id?: string;
+  stripe_charge_id?: string;
   status: string;
-  total_amount: number;
+  total_amount_cents: number;
   currency: string;
+  shipping_address_snapshot: Record<string, any>;
+  contact_info_snapshot: Record<string, any>;
+  imei_snapshot?: string;
+  gigs_device_id_snapshot?: string;
+  port_number_snapshot?: string;
+  new_number_snapshot?: string;
+  gigs_porting_id?: string;
   metadata?: Record<string, any>;
   created_at?: string;
   updated_at?: string;

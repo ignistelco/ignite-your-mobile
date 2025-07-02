@@ -1,7 +1,10 @@
 
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
-import type { Order } from '@/types/database';
+
+// Use the Supabase-generated types directly
+type Order = Database['public']['Tables']['orders']['Row'];
+type OrderInsert = Database['public']['Tables']['orders']['Insert'];
 
 export function useOrders() {
   return useQuery({
@@ -13,7 +16,7 @@ export function useOrders() {
         .order('created_at', { ascending: false });
       
       if (error) throw error;
-      return data as Order[];
+      return data;
     },
   });
 }
@@ -25,11 +28,11 @@ export function useOrder(id: string) {
       const { data, error } = await supabase
         .from('orders')
         .select('*')
-        .eq('id', id)
+        .eq('order_id', id)
         .single();
       
       if (error) throw error;
-      return data as Order;
+      return data;
     },
     enabled: !!id,
   });
@@ -39,7 +42,7 @@ export function useCreateOrder() {
   const queryClient = useQueryClient();
   
   return useMutation({
-    mutationFn: async (order: Omit<Order, 'id' | 'created_at' | 'updated_at'>) => {
+    mutationFn: async (order: OrderInsert) => {
       const { data, error } = await supabase
         .from('orders')
         .insert(order)
@@ -47,7 +50,7 @@ export function useCreateOrder() {
         .single();
       
       if (error) throw error;
-      return data as Order;
+      return data;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['orders'] });
@@ -59,20 +62,20 @@ export function useUpdateOrder() {
   const queryClient = useQueryClient();
   
   return useMutation({
-    mutationFn: async ({ id, ...updates }: Partial<Order> & { id: string }) => {
+    mutationFn: async ({ order_id, ...updates }: Partial<Order> & { order_id: string }) => {
       const { data, error } = await supabase
         .from('orders')
         .update(updates)
-        .eq('id', id)
+        .eq('order_id', order_id)
         .select()
         .single();
       
       if (error) throw error;
-      return data as Order;
+      return data;
     },
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ['orders'] });
-      queryClient.invalidateQueries({ queryKey: ['order', data.id] });
+      queryClient.invalidateQueries({ queryKey: ['order', data.order_id] });
     },
   });
 }
