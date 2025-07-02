@@ -9,38 +9,88 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      addon_product_models: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          gigs_addon_id: string | null
+          is_active: boolean
+          name: string
+          price_cents: number
+          product_id: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          gigs_addon_id?: string | null
+          is_active?: boolean
+          name: string
+          price_cents: number
+          product_id?: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          gigs_addon_id?: string | null
+          is_active?: boolean
+          name?: string
+          price_cents?: number
+          product_id?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "addon_product_models_gigs_addon_id_fkey"
+            columns: ["gigs_addon_id"]
+            isOneToOne: false
+            referencedRelation: "gigs_addons"
+            referencedColumns: ["gigs_addon_id"]
+          },
+        ]
+      }
       addresses: {
         Row: {
+          address_id: string
           city: string
           country: string
           created_at: string | null
-          id: string
+          gigs_address_id: string | null
+          is_primary: boolean | null
           line1: string
           line2: string | null
+          metadata: Json | null
           postal_code: string | null
           state: string | null
           updated_at: string | null
           user_id: string
         }
         Insert: {
+          address_id?: string
           city: string
           country: string
           created_at?: string | null
-          id: string
+          gigs_address_id?: string | null
+          is_primary?: boolean | null
           line1: string
           line2?: string | null
+          metadata?: Json | null
           postal_code?: string | null
           state?: string | null
           updated_at?: string | null
           user_id: string
         }
         Update: {
+          address_id?: string
           city?: string
           country?: string
           created_at?: string | null
-          id?: string
+          gigs_address_id?: string | null
+          is_primary?: boolean | null
           line1?: string
           line2?: string | null
+          metadata?: Json | null
           postal_code?: string | null
           state?: string | null
           updated_at?: string | null
@@ -51,95 +101,476 @@ export type Database = {
             foreignKeyName: "addresses_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
           },
         ]
       }
       admin_users: {
         Row: {
+          admin_user_id: string
           created_at: string | null
-          id: string
-          permissions: Json | null
+          department_id: string | null
+          email: string
+          full_name: string
+          is_active: boolean
           role: string
           updated_at: string | null
-          user_id: string
         }
         Insert: {
+          admin_user_id: string
           created_at?: string | null
-          id?: string
-          permissions?: Json | null
-          role?: string
+          department_id?: string | null
+          email: string
+          full_name: string
+          is_active?: boolean
+          role: string
           updated_at?: string | null
-          user_id: string
         }
         Update: {
+          admin_user_id?: string
           created_at?: string | null
-          id?: string
-          permissions?: Json | null
+          department_id?: string | null
+          email?: string
+          full_name?: string
+          is_active?: boolean
           role?: string
           updated_at?: string | null
-          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "admin_users_department_id_fkey"
+            columns: ["department_id"]
+            isOneToOne: false
+            referencedRelation: "departments"
+            referencedColumns: ["department_id"]
+          },
+        ]
+      }
+      available_numbers: {
+        Row: {
+          area_code: string
+          created_at: string | null
+          gigs_number_id: string | null
+          phone_number: string
+          status: string
+          updated_at: string | null
+        }
+        Insert: {
+          area_code: string
+          created_at?: string | null
+          gigs_number_id?: string | null
+          phone_number: string
+          status: string
+          updated_at?: string | null
+        }
+        Update: {
+          area_code?: string
+          created_at?: string | null
+          gigs_number_id?: string | null
+          phone_number?: string
+          status?: string
+          updated_at?: string | null
         }
         Relationships: []
       }
-      gigs_addons: {
+      cart: {
         Row: {
-          addon_type: string
+          cart_id: string
           created_at: string | null
-          data_allowance_bytes: number | null
-          description: string | null
-          id: string
-          metadata: Json | null
-          name: string
-          price_amount: number
-          price_currency: string
-          provider: string
-          sms_allowance_messages: number | null
-          status: string
+          items: Json
+          overall_total_cents: number
           updated_at: string | null
-          validity_type: string | null
-          validity_unit: string | null
-          validity_value: number | null
-          voice_allowance_seconds: number | null
+          user_id: string | null
         }
         Insert: {
-          addon_type: string
+          cart_id?: string
           created_at?: string | null
-          data_allowance_bytes?: number | null
-          description?: string | null
-          id: string
-          metadata?: Json | null
-          name: string
-          price_amount: number
-          price_currency: string
-          provider: string
-          sms_allowance_messages?: number | null
-          status: string
+          items?: Json
+          overall_total_cents: number
           updated_at?: string | null
-          validity_type?: string | null
-          validity_unit?: string | null
-          validity_value?: number | null
-          voice_allowance_seconds?: number | null
+          user_id?: string | null
         }
         Update: {
-          addon_type?: string
+          cart_id?: string
           created_at?: string | null
-          data_allowance_bytes?: number | null
+          items?: Json
+          overall_total_cents?: number
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cart_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      chatbot_training_data: {
+        Row: {
+          created_at: string | null
+          created_by: string | null
+          data_id: string
+          external_link: string | null
+          intent: string
+          is_active: boolean
+          question_phrases: string[]
+          response_text: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          created_by?: string | null
+          data_id?: string
+          external_link?: string | null
+          intent: string
+          is_active?: boolean
+          question_phrases: string[]
+          response_text: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          created_by?: string | null
+          data_id?: string
+          external_link?: string | null
+          intent?: string
+          is_active?: boolean
+          question_phrases?: string[]
+          response_text?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "chatbot_training_data_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "admin_users"
+            referencedColumns: ["admin_user_id"]
+          },
+        ]
+      }
+      commissions: {
+        Row: {
+          admin_user_id: string | null
+          amount_cents: number
+          commission_id: string
+          created_at: string | null
+          currency: string
+          marketing_program_id: string | null
+          notes: string | null
+          order_id: string | null
+          status: string
+          type: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          admin_user_id?: string | null
+          amount_cents: number
+          commission_id?: string
+          created_at?: string | null
+          currency?: string
+          marketing_program_id?: string | null
+          notes?: string | null
+          order_id?: string | null
+          status: string
+          type: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          admin_user_id?: string | null
+          amount_cents?: number
+          commission_id?: string
+          created_at?: string | null
+          currency?: string
+          marketing_program_id?: string | null
+          notes?: string | null
+          order_id?: string | null
+          status?: string
+          type?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "commissions_admin_user_id_fkey"
+            columns: ["admin_user_id"]
+            isOneToOne: false
+            referencedRelation: "admin_users"
+            referencedColumns: ["admin_user_id"]
+          },
+          {
+            foreignKeyName: "commissions_marketing_program_id_fkey"
+            columns: ["marketing_program_id"]
+            isOneToOne: false
+            referencedRelation: "marketing_programs"
+            referencedColumns: ["program_id"]
+          },
+          {
+            foreignKeyName: "commissions_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["order_id"]
+          },
+          {
+            foreignKeyName: "commissions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      departments: {
+        Row: {
+          created_at: string | null
+          department_id: string
+          description: string | null
+          name: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          department_id?: string
           description?: string | null
-          id?: string
+          name: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          department_id?: string
+          description?: string | null
+          name?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      device_product_model_variants: {
+        Row: {
+          color: string
+          created_at: string | null
+          price_modifier_cents: number
+          product_id: string
+          updated_at: string | null
+          variant_id: string
+        }
+        Insert: {
+          color: string
+          created_at?: string | null
+          price_modifier_cents?: number
+          product_id: string
+          updated_at?: string | null
+          variant_id?: string
+        }
+        Update: {
+          color?: string
+          created_at?: string | null
+          price_modifier_cents?: number
+          product_id?: string
+          updated_at?: string | null
+          variant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "device_product_model_variants_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "device_product_models"
+            referencedColumns: ["product_id"]
+          },
+        ]
+      }
+      device_product_models: {
+        Row: {
+          additional_spec_details: string | null
+          base_price_cents: number
+          battery_description: string | null
+          bluetooth_version: string | null
+          created_at: string | null
+          display_resolution: string | null
+          display_size_inches: number | null
+          frequency_bands: string | null
+          front_camera_mp: number | null
+          gigs_device_model_id: string | null
+          hearing_aid_compatibility: boolean | null
+          height_mm: number | null
+          images: string[]
+          is_active: boolean
+          length_mm: number | null
+          lifestyle: string
+          manufacturer: string
+          mobile_hotspot_capable: boolean | null
+          model_name: string
+          name: string
+          network_technologies: string[]
+          nfc_supported: boolean | null
+          os: string
+          other_features_text: string | null
+          processor: string | null
+          product_id: string
+          ram_gb: number | null
+          rear_camera_mp: number | null
+          satellite_capable: boolean | null
+          sensors: string[] | null
+          sim_card_ports: number
+          sim_card_types: string[]
+          standby_time_hours: number | null
+          storage_options_gb: number[]
+          supported_email_platforms: string | null
+          updated_at: string | null
+          usb_type: string | null
+          video_url: string | null
+          volte_supported: boolean | null
+          wea_capable: boolean | null
+          weight_grams: number | null
+          width_mm: number | null
+          wifi_standard: string | null
+        }
+        Insert: {
+          additional_spec_details?: string | null
+          base_price_cents: number
+          battery_description?: string | null
+          bluetooth_version?: string | null
+          created_at?: string | null
+          display_resolution?: string | null
+          display_size_inches?: number | null
+          frequency_bands?: string | null
+          front_camera_mp?: number | null
+          gigs_device_model_id?: string | null
+          hearing_aid_compatibility?: boolean | null
+          height_mm?: number | null
+          images: string[]
+          is_active?: boolean
+          length_mm?: number | null
+          lifestyle: string
+          manufacturer: string
+          mobile_hotspot_capable?: boolean | null
+          model_name: string
+          name: string
+          network_technologies: string[]
+          nfc_supported?: boolean | null
+          os: string
+          other_features_text?: string | null
+          processor?: string | null
+          product_id?: string
+          ram_gb?: number | null
+          rear_camera_mp?: number | null
+          satellite_capable?: boolean | null
+          sensors?: string[] | null
+          sim_card_ports: number
+          sim_card_types: string[]
+          standby_time_hours?: number | null
+          storage_options_gb?: number[]
+          supported_email_platforms?: string | null
+          updated_at?: string | null
+          usb_type?: string | null
+          video_url?: string | null
+          volte_supported?: boolean | null
+          wea_capable?: boolean | null
+          weight_grams?: number | null
+          width_mm?: number | null
+          wifi_standard?: string | null
+        }
+        Update: {
+          additional_spec_details?: string | null
+          base_price_cents?: number
+          battery_description?: string | null
+          bluetooth_version?: string | null
+          created_at?: string | null
+          display_resolution?: string | null
+          display_size_inches?: number | null
+          frequency_bands?: string | null
+          front_camera_mp?: number | null
+          gigs_device_model_id?: string | null
+          hearing_aid_compatibility?: boolean | null
+          height_mm?: number | null
+          images?: string[]
+          is_active?: boolean
+          length_mm?: number | null
+          lifestyle?: string
+          manufacturer?: string
+          mobile_hotspot_capable?: boolean | null
+          model_name?: string
+          name?: string
+          network_technologies?: string[]
+          nfc_supported?: boolean | null
+          os?: string
+          other_features_text?: string | null
+          processor?: string | null
+          product_id?: string
+          ram_gb?: number | null
+          rear_camera_mp?: number | null
+          satellite_capable?: boolean | null
+          sensors?: string[] | null
+          sim_card_ports?: number
+          sim_card_types?: string[]
+          standby_time_hours?: number | null
+          storage_options_gb?: number[]
+          supported_email_platforms?: string | null
+          updated_at?: string | null
+          usb_type?: string | null
+          video_url?: string | null
+          volte_supported?: boolean | null
+          wea_capable?: boolean | null
+          weight_grams?: number | null
+          width_mm?: number | null
+          wifi_standard?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "device_product_models_gigs_device_model_id_fkey"
+            columns: ["gigs_device_model_id"]
+            isOneToOne: false
+            referencedRelation: "gigs_device_models"
+            referencedColumns: ["gigs_device_model_id"]
+          },
+        ]
+      }
+      gigs_addons: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          gigs_addon_id: string
+          metadata: Json | null
+          name: string
+          price_amount_cents: number
+          price_currency: string
+          recurrence_type: string
+          status: string
+          type: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          gigs_addon_id: string
+          metadata?: Json | null
+          name: string
+          price_amount_cents: number
+          price_currency: string
+          recurrence_type: string
+          status: string
+          type: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          gigs_addon_id?: string
           metadata?: Json | null
           name?: string
-          price_amount?: number
+          price_amount_cents?: number
           price_currency?: string
-          provider?: string
-          sms_allowance_messages?: number | null
+          recurrence_type?: string
           status?: string
+          type?: string
           updated_at?: string | null
-          validity_type?: string | null
-          validity_unit?: string | null
-          validity_value?: number | null
-          voice_allowance_seconds?: number | null
         }
         Relationships: []
       }
@@ -147,7 +578,8 @@ export type Database = {
         Row: {
           brand: string
           created_at: string | null
-          id: string
+          gigs_device_model_id: string
+          metadata: Json | null
           name: string
           sim_types: string[]
           type: string
@@ -156,7 +588,8 @@ export type Database = {
         Insert: {
           brand: string
           created_at?: string | null
-          id: string
+          gigs_device_model_id: string
+          metadata?: Json | null
           name: string
           sim_types: string[]
           type: string
@@ -165,7 +598,8 @@ export type Database = {
         Update: {
           brand?: string
           created_at?: string | null
-          id?: string
+          gigs_device_model_id?: string
+          metadata?: Json | null
           name?: string
           sim_types?: string[]
           type?: string
@@ -173,29 +607,85 @@ export type Database = {
         }
         Relationships: []
       }
+      gigs_invoices: {
+        Row: {
+          created_at: string | null
+          currency: string
+          finalized_at: string | null
+          gigs_invoice_id: string
+          metadata: Json | null
+          paid_at: string | null
+          reason: string
+          status: string
+          subscription_id: string | null
+          total_amount_cents: number
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          currency: string
+          finalized_at?: string | null
+          gigs_invoice_id: string
+          metadata?: Json | null
+          paid_at?: string | null
+          reason: string
+          status: string
+          subscription_id?: string | null
+          total_amount_cents: number
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          currency?: string
+          finalized_at?: string | null
+          gigs_invoice_id?: string
+          metadata?: Json | null
+          paid_at?: string | null
+          reason?: string
+          status?: string
+          subscription_id?: string | null
+          total_amount_cents?: number
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "gigs_invoices_subscription_id_fkey"
+            columns: ["subscription_id"]
+            isOneToOne: false
+            referencedRelation: "subscriptions"
+            referencedColumns: ["subscription_id"]
+          },
+          {
+            foreignKeyName: "gigs_invoices_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
       gigs_plans: {
         Row: {
           coverage_countries: string[] | null
           created_at: string | null
           data_allowance_bytes: number | null
           description: string | null
-          id: string
+          gigs_plan_id: string
           image_url: string | null
           metadata: Json | null
           name: string
-          price_amount: number
+          price_amount_cents: number
           price_currency: string
           provider: string
-          requirements_address: string
-          requirements_device: string
-          requirements_user_birthday: string
-          requirements_user_full_name: string
+          requirements: Json | null
           sim_types: string[]
           sms_allowance_messages: number | null
           status: string
           updated_at: string | null
           validity_type: string | null
-          validity_unit: string | null
           validity_value: number | null
           voice_allowance_seconds: number | null
         }
@@ -204,23 +694,19 @@ export type Database = {
           created_at?: string | null
           data_allowance_bytes?: number | null
           description?: string | null
-          id: string
+          gigs_plan_id: string
           image_url?: string | null
           metadata?: Json | null
           name: string
-          price_amount: number
+          price_amount_cents: number
           price_currency: string
           provider: string
-          requirements_address: string
-          requirements_device: string
-          requirements_user_birthday: string
-          requirements_user_full_name: string
+          requirements?: Json | null
           sim_types: string[]
           sms_allowance_messages?: number | null
           status: string
           updated_at?: string | null
           validity_type?: string | null
-          validity_unit?: string | null
           validity_value?: number | null
           voice_allowance_seconds?: number | null
         }
@@ -229,848 +715,1220 @@ export type Database = {
           created_at?: string | null
           data_allowance_bytes?: number | null
           description?: string | null
-          id?: string
+          gigs_plan_id?: string
           image_url?: string | null
           metadata?: Json | null
           name?: string
-          price_amount?: number
+          price_amount_cents?: number
           price_currency?: string
           provider?: string
-          requirements_address?: string
-          requirements_device?: string
-          requirements_user_birthday?: string
-          requirements_user_full_name?: string
+          requirements?: Json | null
           sim_types?: string[]
           sms_allowance_messages?: number | null
           status?: string
           updated_at?: string | null
           validity_type?: string | null
-          validity_unit?: string | null
           validity_value?: number | null
           voice_allowance_seconds?: number | null
         }
         Relationships: []
       }
-      gigs_sims: {
+      gigs_quotes: {
         Row: {
           created_at: string | null
-          e_sim_activation_code: string | null
-          e_sim_qr_code_url: string | null
-          iccid: string | null
-          id: string
-          provider: string
-          status: string
-          type: string
-          updated_at: string | null
+          currency: string
+          expired_at: string
+          gigs_quote_id: string
+          payload: Json
+          total_amount_cents: number
+          user_id: string
         }
         Insert: {
           created_at?: string | null
-          e_sim_activation_code?: string | null
-          e_sim_qr_code_url?: string | null
-          iccid?: string | null
-          id: string
-          provider: string
-          status: string
-          type: string
-          updated_at?: string | null
+          currency: string
+          expired_at: string
+          gigs_quote_id: string
+          payload: Json
+          total_amount_cents: number
+          user_id: string
         }
         Update: {
           created_at?: string | null
-          e_sim_activation_code?: string | null
-          e_sim_qr_code_url?: string | null
-          iccid?: string | null
-          id?: string
-          provider?: string
+          currency?: string
+          expired_at?: string
+          gigs_quote_id?: string
+          payload?: Json
+          total_amount_cents?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "gigs_quotes_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      gigs_sims: {
+        Row: {
+          created_at: string | null
+          gigs_sim_id: string
+          iccid: string
+          metadata: Json | null
+          status: string
+          type: string
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          gigs_sim_id: string
+          iccid: string
+          metadata?: Json | null
+          status: string
+          type: string
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          gigs_sim_id?: string
+          iccid?: string
+          metadata?: Json | null
           status?: string
           type?: string
           updated_at?: string | null
+          user_id?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "gigs_sims_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      help_guides: {
+        Row: {
+          category: string
+          content_html: string
+          created_at: string | null
+          created_by: string | null
+          display_order: number
+          guide_id: string
+          is_published: boolean
+          keywords: string[] | null
+          slug: string
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          category: string
+          content_html: string
+          created_at?: string | null
+          created_by?: string | null
+          display_order?: number
+          guide_id?: string
+          is_published?: boolean
+          keywords?: string[] | null
+          slug: string
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          category?: string
+          content_html?: string
+          created_at?: string | null
+          created_by?: string | null
+          display_order?: number
+          guide_id?: string
+          is_published?: boolean
+          keywords?: string[] | null
+          slug?: string
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "help_guides_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "admin_users"
+            referencedColumns: ["admin_user_id"]
+          },
+        ]
       }
       idempotency_keys: {
         Row: {
           created_at: string | null
           expires_at: string
-          id: string
           key: string
-          response: Json | null
-          source: string
-          status: string
-          updated_at: string | null
+          request_body_hash: string | null
+          request_method: string
+          request_path: string
+          response_body: Json | null
+          response_status_code: number | null
         }
         Insert: {
           created_at?: string | null
           expires_at: string
-          id?: string
           key: string
-          response?: Json | null
-          source: string
-          status?: string
-          updated_at?: string | null
+          request_body_hash?: string | null
+          request_method: string
+          request_path: string
+          response_body?: Json | null
+          response_status_code?: number | null
         }
         Update: {
           created_at?: string | null
           expires_at?: string
-          id?: string
           key?: string
-          response?: Json | null
-          source?: string
-          status?: string
-          updated_at?: string | null
+          request_body_hash?: string | null
+          request_method?: string
+          request_path?: string
+          response_body?: Json | null
+          response_status_code?: number | null
         }
         Relationships: []
       }
-      invoices: {
+      live_chat_sessions: {
         Row: {
-          amount: number
           created_at: string | null
-          currency: string
-          due_date: string | null
-          gigs_invoice_id: string
-          id: string
+          end_time: string | null
+          escalated_to_ticket_id: string | null
           metadata: Json | null
-          paid_at: string | null
+          session_id: string
+          start_time: string | null
           status: string
-          subscription_id: string | null
+          support_agent_id: string | null
+          transcript: Json | null
           updated_at: string | null
           user_id: string
         }
         Insert: {
-          amount: number
           created_at?: string | null
-          currency: string
-          due_date?: string | null
-          gigs_invoice_id: string
-          id?: string
+          end_time?: string | null
+          escalated_to_ticket_id?: string | null
           metadata?: Json | null
-          paid_at?: string | null
-          status?: string
-          subscription_id?: string | null
+          session_id?: string
+          start_time?: string | null
+          status: string
+          support_agent_id?: string | null
+          transcript?: Json | null
           updated_at?: string | null
           user_id: string
         }
         Update: {
-          amount?: number
           created_at?: string | null
-          currency?: string
-          due_date?: string | null
-          gigs_invoice_id?: string
-          id?: string
+          end_time?: string | null
+          escalated_to_ticket_id?: string | null
           metadata?: Json | null
-          paid_at?: string | null
+          session_id?: string
+          start_time?: string | null
           status?: string
-          subscription_id?: string | null
+          support_agent_id?: string | null
+          transcript?: Json | null
           updated_at?: string | null
           user_id?: string
         }
         Relationships: [
           {
-            foreignKeyName: "invoices_subscription_id_fkey"
-            columns: ["subscription_id"]
+            foreignKeyName: "live_chat_sessions_support_agent_id_fkey"
+            columns: ["support_agent_id"]
             isOneToOne: false
-            referencedRelation: "subscriptions"
-            referencedColumns: ["id"]
+            referencedRelation: "admin_users"
+            referencedColumns: ["admin_user_id"]
           },
           {
-            foreignKeyName: "invoices_user_id_fkey"
+            foreignKeyName: "live_chat_sessions_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
           },
         ]
       }
-      newsletter_subscribers: {
+      marketing_programs: {
         Row: {
           created_at: string | null
-          email: string
-          id: string
+          created_by: string | null
+          description: string | null
           is_active: boolean
-          metadata: Json | null
-          subscribed_at: string | null
-          unsubscribed_at: string | null
+          name: string
+          program_id: string
+          signup_url: string | null
+          terms_html: string | null
+          type: string
           updated_at: string | null
         }
         Insert: {
           created_at?: string | null
-          email: string
-          id?: string
+          created_by?: string | null
+          description?: string | null
           is_active?: boolean
-          metadata?: Json | null
-          subscribed_at?: string | null
-          unsubscribed_at?: string | null
+          name: string
+          program_id?: string
+          signup_url?: string | null
+          terms_html?: string | null
+          type: string
           updated_at?: string | null
         }
         Update: {
           created_at?: string | null
-          email?: string
-          id?: string
+          created_by?: string | null
+          description?: string | null
           is_active?: boolean
-          metadata?: Json | null
-          subscribed_at?: string | null
-          unsubscribed_at?: string | null
+          name?: string
+          program_id?: string
+          signup_url?: string | null
+          terms_html?: string | null
+          type?: string
           updated_at?: string | null
-        }
-        Relationships: []
-      }
-      orders: {
-        Row: {
-          created_at: string | null
-          currency: string
-          gigs_subscription_id: string | null
-          id: string
-          metadata: Json | null
-          product_addon_ids: string[] | null
-          product_plan_id: string | null
-          quote_id: string | null
-          square_order_id: string | null
-          status: string
-          total_amount: number
-          updated_at: string | null
-          user_id: string
-          voucher_id: string | null
-        }
-        Insert: {
-          created_at?: string | null
-          currency: string
-          gigs_subscription_id?: string | null
-          id?: string
-          metadata?: Json | null
-          product_addon_ids?: string[] | null
-          product_plan_id?: string | null
-          quote_id?: string | null
-          square_order_id?: string | null
-          status?: string
-          total_amount: number
-          updated_at?: string | null
-          user_id: string
-          voucher_id?: string | null
-        }
-        Update: {
-          created_at?: string | null
-          currency?: string
-          gigs_subscription_id?: string | null
-          id?: string
-          metadata?: Json | null
-          product_addon_ids?: string[] | null
-          product_plan_id?: string | null
-          quote_id?: string | null
-          square_order_id?: string | null
-          status?: string
-          total_amount?: number
-          updated_at?: string | null
-          user_id?: string
-          voucher_id?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "orders_product_plan_id_fkey"
-            columns: ["product_plan_id"]
+            foreignKeyName: "marketing_programs_created_by_fkey"
+            columns: ["created_by"]
             isOneToOne: false
-            referencedRelation: "product_plans"
-            referencedColumns: ["id"]
+            referencedRelation: "admin_users"
+            referencedColumns: ["admin_user_id"]
+          },
+        ]
+      }
+      orders: {
+        Row: {
+          cart_id: string | null
+          contact_info_snapshot: Json
+          created_at: string | null
+          currency: string
+          gigs_device_id_snapshot: string | null
+          gigs_porting_id: string | null
+          gigs_subscription_id: string | null
+          imei_snapshot: string | null
+          metadata: Json | null
+          new_number_snapshot: string | null
+          order_id: string
+          port_number_snapshot: string | null
+          purchased_addon_product_ids: string[] | null
+          purchased_device_product_id: string | null
+          purchased_device_variant_id: string | null
+          purchased_plan_product_id: string
+          purchased_plan_term_months: number | null
+          shipping_address_snapshot: Json
+          status: string
+          stripe_charge_id: string | null
+          stripe_payment_intent_id: string | null
+          total_amount_cents: number
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          cart_id?: string | null
+          contact_info_snapshot: Json
+          created_at?: string | null
+          currency?: string
+          gigs_device_id_snapshot?: string | null
+          gigs_porting_id?: string | null
+          gigs_subscription_id?: string | null
+          imei_snapshot?: string | null
+          metadata?: Json | null
+          new_number_snapshot?: string | null
+          order_id?: string
+          port_number_snapshot?: string | null
+          purchased_addon_product_ids?: string[] | null
+          purchased_device_product_id?: string | null
+          purchased_device_variant_id?: string | null
+          purchased_plan_product_id: string
+          purchased_plan_term_months?: number | null
+          shipping_address_snapshot: Json
+          status: string
+          stripe_charge_id?: string | null
+          stripe_payment_intent_id?: string | null
+          total_amount_cents: number
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          cart_id?: string | null
+          contact_info_snapshot?: Json
+          created_at?: string | null
+          currency?: string
+          gigs_device_id_snapshot?: string | null
+          gigs_porting_id?: string | null
+          gigs_subscription_id?: string | null
+          imei_snapshot?: string | null
+          metadata?: Json | null
+          new_number_snapshot?: string | null
+          order_id?: string
+          port_number_snapshot?: string | null
+          purchased_addon_product_ids?: string[] | null
+          purchased_device_product_id?: string | null
+          purchased_device_variant_id?: string | null
+          purchased_plan_product_id?: string
+          purchased_plan_term_months?: number | null
+          shipping_address_snapshot?: Json
+          status?: string
+          stripe_charge_id?: string | null
+          stripe_payment_intent_id?: string | null
+          total_amount_cents?: number
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "orders_cart_id_fkey"
+            columns: ["cart_id"]
+            isOneToOne: false
+            referencedRelation: "cart"
+            referencedColumns: ["cart_id"]
           },
           {
-            foreignKeyName: "orders_quote_id_fkey"
-            columns: ["quote_id"]
+            foreignKeyName: "orders_gigs_device_id_snapshot_fkey"
+            columns: ["gigs_device_id_snapshot"]
             isOneToOne: false
-            referencedRelation: "quotes"
-            referencedColumns: ["id"]
+            referencedRelation: "user_devices"
+            referencedColumns: ["gigs_device_id"]
+          },
+          {
+            foreignKeyName: "orders_purchased_device_product_id_fkey"
+            columns: ["purchased_device_product_id"]
+            isOneToOne: false
+            referencedRelation: "device_product_models"
+            referencedColumns: ["product_id"]
+          },
+          {
+            foreignKeyName: "orders_purchased_device_variant_id_fkey"
+            columns: ["purchased_device_variant_id"]
+            isOneToOne: false
+            referencedRelation: "device_product_model_variants"
+            referencedColumns: ["variant_id"]
+          },
+          {
+            foreignKeyName: "orders_purchased_plan_product_id_fkey"
+            columns: ["purchased_plan_product_id"]
+            isOneToOne: false
+            referencedRelation: "plan_product_models"
+            referencedColumns: ["product_id"]
           },
           {
             foreignKeyName: "orders_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "orders_voucher_id_fkey"
-            columns: ["voucher_id"]
-            isOneToOne: false
-            referencedRelation: "vouchers"
-            referencedColumns: ["id"]
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
           },
         ]
       }
       payments: {
         Row: {
-          amount: number
+          amount_cents: number
+          card_brand: string | null
+          card_last4: string | null
           created_at: string | null
           currency: string
-          id: string
-          invoice_id: string | null
           metadata: Json | null
-          order_id: string | null
-          payment_method: string | null
-          processed_at: string | null
-          square_payment_id: string | null
+          order_id: string
+          payment_id: string
+          payment_method_type: string
           status: string
+          stripe_charge_id: string | null
+          stripe_payment_intent_id: string
           updated_at: string | null
         }
         Insert: {
-          amount: number
+          amount_cents: number
+          card_brand?: string | null
+          card_last4?: string | null
           created_at?: string | null
-          currency: string
-          id?: string
-          invoice_id?: string | null
+          currency?: string
           metadata?: Json | null
-          order_id?: string | null
-          payment_method?: string | null
-          processed_at?: string | null
-          square_payment_id?: string | null
-          status?: string
+          order_id: string
+          payment_id?: string
+          payment_method_type: string
+          status: string
+          stripe_charge_id?: string | null
+          stripe_payment_intent_id: string
           updated_at?: string | null
         }
         Update: {
-          amount?: number
+          amount_cents?: number
+          card_brand?: string | null
+          card_last4?: string | null
           created_at?: string | null
           currency?: string
-          id?: string
-          invoice_id?: string | null
           metadata?: Json | null
-          order_id?: string | null
-          payment_method?: string | null
-          processed_at?: string | null
-          square_payment_id?: string | null
+          order_id?: string
+          payment_id?: string
+          payment_method_type?: string
           status?: string
+          stripe_charge_id?: string | null
+          stripe_payment_intent_id?: string
           updated_at?: string | null
         }
         Relationships: [
-          {
-            foreignKeyName: "payments_invoice_id_fkey"
-            columns: ["invoice_id"]
-            isOneToOne: false
-            referencedRelation: "invoices"
-            referencedColumns: ["id"]
-          },
           {
             foreignKeyName: "payments_order_id_fkey"
             columns: ["order_id"]
             isOneToOne: false
             referencedRelation: "orders"
-            referencedColumns: ["id"]
+            referencedColumns: ["order_id"]
           },
         ]
       }
-      product_addons: {
+      plan_product_models: {
         Row: {
           created_at: string | null
-          custom_price_amount: number | null
-          custom_price_currency: string | null
-          description: string | null
-          gigs_addon_id: string | null
-          id: string
+          features: string[]
+          gigs_plan_id: string
           is_active: boolean
-          metadata: Json | null
           name: string
-          updated_at: string | null
-        }
-        Insert: {
-          created_at?: string | null
-          custom_price_amount?: number | null
-          custom_price_currency?: string | null
-          description?: string | null
-          gigs_addon_id?: string | null
-          id?: string
-          is_active?: boolean
-          metadata?: Json | null
-          name: string
-          updated_at?: string | null
-        }
-        Update: {
-          created_at?: string | null
-          custom_price_amount?: number | null
-          custom_price_currency?: string | null
-          description?: string | null
-          gigs_addon_id?: string | null
-          id?: string
-          is_active?: boolean
-          metadata?: Json | null
-          name?: string
-          updated_at?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "product_addons_gigs_addon_id_fkey"
-            columns: ["gigs_addon_id"]
-            isOneToOne: false
-            referencedRelation: "gigs_addons"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      product_device_models: {
-        Row: {
-          android_version: string | null
-          battery_description: string | null
-          bluetooth_version: string | null
-          color: string | null
-          created_at: string | null
-          description: string | null
-          display_resolution: string | null
-          display_size_inches: number | null
-          front_camera_mp: number | null
-          gigs_device_model_id: string | null
-          id: string
-          image_url: string | null
-          is_active: boolean
-          is_e_sim_compatible: boolean
-          is_p_sim_compatible: boolean
-          metadata: Json | null
-          name: string
-          network_technology: string[] | null
-          nfc_supported: boolean | null
-          price_amount: number | null
-          price_currency: string | null
-          processor: string | null
-          ram_gb: number | null
-          rear_camera_mp: number | null
-          sensors: string[] | null
-          sim_card_ports: number | null
-          sim_card_type: string[] | null
-          standby_time_hours: number | null
-          storage_gb: number | null
-          updated_at: string | null
-          usb_type: string | null
-        }
-        Insert: {
-          android_version?: string | null
-          battery_description?: string | null
-          bluetooth_version?: string | null
-          color?: string | null
-          created_at?: string | null
-          description?: string | null
-          display_resolution?: string | null
-          display_size_inches?: number | null
-          front_camera_mp?: number | null
-          gigs_device_model_id?: string | null
-          id?: string
-          image_url?: string | null
-          is_active?: boolean
-          is_e_sim_compatible?: boolean
-          is_p_sim_compatible?: boolean
-          metadata?: Json | null
-          name: string
-          network_technology?: string[] | null
-          nfc_supported?: boolean | null
-          price_amount?: number | null
-          price_currency?: string | null
-          processor?: string | null
-          ram_gb?: number | null
-          rear_camera_mp?: number | null
-          sensors?: string[] | null
-          sim_card_ports?: number | null
-          sim_card_type?: string[] | null
-          standby_time_hours?: number | null
-          storage_gb?: number | null
-          updated_at?: string | null
-          usb_type?: string | null
-        }
-        Update: {
-          android_version?: string | null
-          battery_description?: string | null
-          bluetooth_version?: string | null
-          color?: string | null
-          created_at?: string | null
-          description?: string | null
-          display_resolution?: string | null
-          display_size_inches?: number | null
-          front_camera_mp?: number | null
-          gigs_device_model_id?: string | null
-          id?: string
-          image_url?: string | null
-          is_active?: boolean
-          is_e_sim_compatible?: boolean
-          is_p_sim_compatible?: boolean
-          metadata?: Json | null
-          name?: string
-          network_technology?: string[] | null
-          nfc_supported?: boolean | null
-          price_amount?: number | null
-          price_currency?: string | null
-          processor?: string | null
-          ram_gb?: number | null
-          rear_camera_mp?: number | null
-          sensors?: string[] | null
-          sim_card_ports?: number | null
-          sim_card_type?: string[] | null
-          standby_time_hours?: number | null
-          storage_gb?: number | null
-          updated_at?: string | null
-          usb_type?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "product_device_models_gigs_device_model_id_fkey"
-            columns: ["gigs_device_model_id"]
-            isOneToOne: false
-            referencedRelation: "gigs_device_models"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      product_plans: {
-        Row: {
-          created_at: string | null
-          custom_price_amount: number | null
-          custom_price_currency: string | null
-          features: string[] | null
-          gigs_plan_id: string | null
-          id: string
-          is_active: boolean
-          metadata: Json | null
-          name: string
+          product_id: string
           tagline: string | null
           updated_at: string | null
         }
         Insert: {
           created_at?: string | null
-          custom_price_amount?: number | null
-          custom_price_currency?: string | null
-          features?: string[] | null
-          gigs_plan_id?: string | null
-          id?: string
+          features: string[]
+          gigs_plan_id: string
           is_active?: boolean
-          metadata?: Json | null
           name: string
+          product_id?: string
           tagline?: string | null
           updated_at?: string | null
         }
         Update: {
           created_at?: string | null
-          custom_price_amount?: number | null
-          custom_price_currency?: string | null
-          features?: string[] | null
-          gigs_plan_id?: string | null
-          id?: string
+          features?: string[]
+          gigs_plan_id?: string
           is_active?: boolean
-          metadata?: Json | null
           name?: string
+          product_id?: string
           tagline?: string | null
           updated_at?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "product_plans_gigs_plan_id_fkey"
+            foreignKeyName: "plan_product_models_gigs_plan_id_fkey"
             columns: ["gigs_plan_id"]
             isOneToOne: false
             referencedRelation: "gigs_plans"
-            referencedColumns: ["id"]
+            referencedColumns: ["gigs_plan_id"]
           },
         ]
       }
-      quotes: {
+      plan_product_terms: {
         Row: {
           created_at: string | null
-          currency: string
-          discount_amount: number | null
-          expires_at: string
-          id: string
-          metadata: Json | null
-          product_addon_ids: string[] | null
-          product_plan_id: string | null
-          subtotal_amount: number
-          tax_amount: number | null
-          total_amount: number
+          monthly_price_cents: number
+          product_id: string
+          term_id: string
+          term_length_months: number
+          total_cost_cents: number
           updated_at: string | null
-          user_id: string
-          voucher_id: string | null
         }
         Insert: {
           created_at?: string | null
-          currency: string
-          discount_amount?: number | null
-          expires_at: string
-          id: string
-          metadata?: Json | null
-          product_addon_ids?: string[] | null
-          product_plan_id?: string | null
-          subtotal_amount: number
-          tax_amount?: number | null
-          total_amount: number
+          monthly_price_cents: number
+          product_id: string
+          term_id?: string
+          term_length_months: number
+          total_cost_cents: number
           updated_at?: string | null
-          user_id: string
-          voucher_id?: string | null
         }
         Update: {
           created_at?: string | null
-          currency?: string
-          discount_amount?: number | null
-          expires_at?: string
-          id?: string
-          metadata?: Json | null
-          product_addon_ids?: string[] | null
-          product_plan_id?: string | null
-          subtotal_amount?: number
-          tax_amount?: number | null
-          total_amount?: number
+          monthly_price_cents?: number
+          product_id?: string
+          term_id?: string
+          term_length_months?: number
+          total_cost_cents?: number
           updated_at?: string | null
-          user_id?: string
-          voucher_id?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "quotes_product_plan_id_fkey"
-            columns: ["product_plan_id"]
+            foreignKeyName: "plan_product_terms_product_id_fkey"
+            columns: ["product_id"]
             isOneToOne: false
-            referencedRelation: "product_plans"
-            referencedColumns: ["id"]
+            referencedRelation: "plan_product_models"
+            referencedColumns: ["product_id"]
+          },
+        ]
+      }
+      product_filter_options: {
+        Row: {
+          category: string
+          created_at: string | null
+          filter_id: string
+          is_active: boolean
+          sort_order: number
+          updated_at: string | null
+          value: string
+        }
+        Insert: {
+          category: string
+          created_at?: string | null
+          filter_id?: string
+          is_active?: boolean
+          sort_order?: number
+          updated_at?: string | null
+          value: string
+        }
+        Update: {
+          category?: string
+          created_at?: string | null
+          filter_id?: string
+          is_active?: boolean
+          sort_order?: number
+          updated_at?: string | null
+          value?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string | null
+          email: string
+          first_name: string
+          gigs_user_id: string | null
+          id_expiration_date: string | null
+          id_number: string | null
+          id_type: string | null
+          last_name: string
+          metadata: Json | null
+          middle_name: string | null
+          phone: string | null
+          preferred_locale: string | null
+          primary_address_id: string | null
+          stripe_customer_id: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          first_name: string
+          gigs_user_id?: string | null
+          id_expiration_date?: string | null
+          id_number?: string | null
+          id_type?: string | null
+          last_name: string
+          metadata?: Json | null
+          middle_name?: string | null
+          phone?: string | null
+          preferred_locale?: string | null
+          primary_address_id?: string | null
+          stripe_customer_id?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          first_name?: string
+          gigs_user_id?: string | null
+          id_expiration_date?: string | null
+          id_number?: string | null
+          id_type?: string | null
+          last_name?: string
+          metadata?: Json | null
+          middle_name?: string | null
+          phone?: string | null
+          preferred_locale?: string | null
+          primary_address_id?: string | null
+          stripe_customer_id?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fk_primary_address"
+            columns: ["primary_address_id"]
+            isOneToOne: false
+            referencedRelation: "addresses"
+            referencedColumns: ["address_id"]
+          },
+        ]
+      }
+      retailer_locations: {
+        Row: {
+          address_line1: string
+          address_line2: string | null
+          city: string
+          country: string
+          created_at: string | null
+          created_by: string | null
+          email: string | null
+          is_active: boolean
+          latitude: number | null
+          location_id: string
+          longitude: number | null
+          name: string
+          phone: string | null
+          postal_code: string | null
+          state: string | null
+          updated_at: string | null
+          website: string | null
+        }
+        Insert: {
+          address_line1: string
+          address_line2?: string | null
+          city: string
+          country: string
+          created_at?: string | null
+          created_by?: string | null
+          email?: string | null
+          is_active?: boolean
+          latitude?: number | null
+          location_id?: string
+          longitude?: number | null
+          name: string
+          phone?: string | null
+          postal_code?: string | null
+          state?: string | null
+          updated_at?: string | null
+          website?: string | null
+        }
+        Update: {
+          address_line1?: string
+          address_line2?: string | null
+          city?: string
+          country?: string
+          created_at?: string | null
+          created_by?: string | null
+          email?: string | null
+          is_active?: boolean
+          latitude?: number | null
+          location_id?: string
+          longitude?: number | null
+          name?: string
+          phone?: string | null
+          postal_code?: string | null
+          state?: string | null
+          updated_at?: string | null
+          website?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "retailer_locations_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "admin_users"
+            referencedColumns: ["admin_user_id"]
+          },
+        ]
+      }
+      returns: {
+        Row: {
+          created_at: string | null
+          created_by: string | null
+          notes: string | null
+          order_id: string
+          reason: string
+          refund_amount_cents: number
+          return_id: string
+          returned_at: string | null
+          status: string
+          stripe_refund_id: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          created_by?: string | null
+          notes?: string | null
+          order_id: string
+          reason: string
+          refund_amount_cents: number
+          return_id?: string
+          returned_at?: string | null
+          status: string
+          stripe_refund_id?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          created_by?: string | null
+          notes?: string | null
+          order_id?: string
+          reason?: string
+          refund_amount_cents?: number
+          return_id?: string
+          returned_at?: string | null
+          status?: string
+          stripe_refund_id?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "returns_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "admin_users"
+            referencedColumns: ["admin_user_id"]
           },
           {
-            foreignKeyName: "quotes_user_id_fkey"
+            foreignKeyName: "returns_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["order_id"]
+          },
+          {
+            foreignKeyName: "returns_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
           },
+        ]
+      }
+      static_content_pages: {
+        Row: {
+          content_html: string
+          created_at: string | null
+          created_by: string | null
+          is_active: boolean
+          last_published_at: string | null
+          page_id: string
+          slug: string
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          content_html: string
+          created_at?: string | null
+          created_by?: string | null
+          is_active?: boolean
+          last_published_at?: string | null
+          page_id?: string
+          slug: string
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          content_html?: string
+          created_at?: string | null
+          created_by?: string | null
+          is_active?: boolean
+          last_published_at?: string | null
+          page_id?: string
+          slug?: string
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: [
           {
-            foreignKeyName: "quotes_voucher_id_fkey"
-            columns: ["voucher_id"]
+            foreignKeyName: "static_content_pages_created_by_fkey"
+            columns: ["created_by"]
             isOneToOne: false
-            referencedRelation: "vouchers"
-            referencedColumns: ["id"]
+            referencedRelation: "admin_users"
+            referencedColumns: ["admin_user_id"]
           },
         ]
       }
       subscriptions: {
         Row: {
-          activated_at: string | null
           created_at: string | null
-          expires_at: string | null
-          gigs_plan_id: string | null
+          e_sim_activation_code: string | null
+          e_sim_qr_code_url: string | null
+          gigs_device_id: string | null
+          gigs_invoice_id: string | null
+          gigs_plan_id: string
           gigs_sim_id: string | null
-          gigs_subscription_id: string
-          id: string
           metadata: Json | null
-          order_id: string | null
-          product_plan_id: string | null
+          order_id: string
+          phone_number: string | null
+          product_plan_id: string
+          purchased_addon_product_ids: string[] | null
           status: string
+          subscription_id: string
+          term_length_months: number
           updated_at: string | null
-          user_device_id: string | null
           user_id: string
         }
         Insert: {
-          activated_at?: string | null
           created_at?: string | null
-          expires_at?: string | null
-          gigs_plan_id?: string | null
+          e_sim_activation_code?: string | null
+          e_sim_qr_code_url?: string | null
+          gigs_device_id?: string | null
+          gigs_invoice_id?: string | null
+          gigs_plan_id: string
           gigs_sim_id?: string | null
-          gigs_subscription_id: string
-          id?: string
           metadata?: Json | null
-          order_id?: string | null
-          product_plan_id?: string | null
-          status?: string
+          order_id: string
+          phone_number?: string | null
+          product_plan_id: string
+          purchased_addon_product_ids?: string[] | null
+          status: string
+          subscription_id: string
+          term_length_months: number
           updated_at?: string | null
-          user_device_id?: string | null
           user_id: string
         }
         Update: {
-          activated_at?: string | null
           created_at?: string | null
-          expires_at?: string | null
-          gigs_plan_id?: string | null
+          e_sim_activation_code?: string | null
+          e_sim_qr_code_url?: string | null
+          gigs_device_id?: string | null
+          gigs_invoice_id?: string | null
+          gigs_plan_id?: string
           gigs_sim_id?: string | null
-          gigs_subscription_id?: string
-          id?: string
           metadata?: Json | null
-          order_id?: string | null
-          product_plan_id?: string | null
+          order_id?: string
+          phone_number?: string | null
+          product_plan_id?: string
+          purchased_addon_product_ids?: string[] | null
           status?: string
+          subscription_id?: string
+          term_length_months?: number
           updated_at?: string | null
-          user_device_id?: string | null
           user_id?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "subscriptions_gigs_device_id_fkey"
+            columns: ["gigs_device_id"]
+            isOneToOne: false
+            referencedRelation: "user_devices"
+            referencedColumns: ["gigs_device_id"]
+          },
           {
             foreignKeyName: "subscriptions_gigs_plan_id_fkey"
             columns: ["gigs_plan_id"]
             isOneToOne: false
             referencedRelation: "gigs_plans"
-            referencedColumns: ["id"]
+            referencedColumns: ["gigs_plan_id"]
           },
           {
             foreignKeyName: "subscriptions_gigs_sim_id_fkey"
             columns: ["gigs_sim_id"]
-            isOneToOne: false
+            isOneToOne: true
             referencedRelation: "gigs_sims"
-            referencedColumns: ["id"]
+            referencedColumns: ["gigs_sim_id"]
           },
           {
             foreignKeyName: "subscriptions_order_id_fkey"
             columns: ["order_id"]
-            isOneToOne: false
+            isOneToOne: true
             referencedRelation: "orders"
-            referencedColumns: ["id"]
+            referencedColumns: ["order_id"]
           },
           {
             foreignKeyName: "subscriptions_product_plan_id_fkey"
             columns: ["product_plan_id"]
             isOneToOne: false
-            referencedRelation: "product_plans"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "subscriptions_user_device_id_fkey"
-            columns: ["user_device_id"]
-            isOneToOne: false
-            referencedRelation: "user_devices"
-            referencedColumns: ["id"]
+            referencedRelation: "plan_product_models"
+            referencedColumns: ["product_id"]
           },
           {
             foreignKeyName: "subscriptions_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      support_tickets: {
+        Row: {
+          assigned_to_agent_id: string | null
+          category: string
+          closed_at: string | null
+          created_at: string | null
+          description: string
+          priority: string
+          resolution_notes: string | null
+          status: string
+          subject: string
+          ticket_id: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          assigned_to_agent_id?: string | null
+          category: string
+          closed_at?: string | null
+          created_at?: string | null
+          description: string
+          priority: string
+          resolution_notes?: string | null
+          status: string
+          subject: string
+          ticket_id?: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          assigned_to_agent_id?: string | null
+          category?: string
+          closed_at?: string | null
+          created_at?: string | null
+          description?: string
+          priority?: string
+          resolution_notes?: string | null
+          status?: string
+          subject?: string
+          ticket_id?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "support_tickets_assigned_to_agent_id_fkey"
+            columns: ["assigned_to_agent_id"]
+            isOneToOne: false
+            referencedRelation: "admin_users"
+            referencedColumns: ["admin_user_id"]
+          },
+          {
+            foreignKeyName: "support_tickets_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      twilio_sent_messages: {
+        Row: {
+          body: string
+          created_at: string | null
+          error_message: string | null
+          from_number: string
+          message_id: string
+          order_id: string | null
+          status: string
+          subscription_id: string | null
+          to_number: string
+          twilio_sid: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          body: string
+          created_at?: string | null
+          error_message?: string | null
+          from_number: string
+          message_id?: string
+          order_id?: string | null
+          status: string
+          subscription_id?: string | null
+          to_number: string
+          twilio_sid?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          body?: string
+          created_at?: string | null
+          error_message?: string | null
+          from_number?: string
+          message_id?: string
+          order_id?: string | null
+          status?: string
+          subscription_id?: string | null
+          to_number?: string
+          twilio_sid?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "twilio_sent_messages_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["order_id"]
+          },
+          {
+            foreignKeyName: "twilio_sent_messages_subscription_id_fkey"
+            columns: ["subscription_id"]
+            isOneToOne: false
+            referencedRelation: "subscriptions"
+            referencedColumns: ["subscription_id"]
           },
         ]
       }
       user_devices: {
         Row: {
           created_at: string | null
-          id: string
-          imei: string | null
-          is_assigned: boolean | null
-          metadata: Json | null
+          gigs_device_id: string
+          imei: string
+          imei_check_snapshot: Json | null
+          is_assigned_to_user: boolean
           name: string | null
-          product_device_model_id: string
+          product_id: string | null
           updated_at: string | null
           user_id: string | null
+          variant_id: string | null
         }
         Insert: {
           created_at?: string | null
-          id: string
-          imei?: string | null
-          is_assigned?: boolean | null
-          metadata?: Json | null
+          gigs_device_id: string
+          imei: string
+          imei_check_snapshot?: Json | null
+          is_assigned_to_user?: boolean
           name?: string | null
-          product_device_model_id: string
+          product_id?: string | null
           updated_at?: string | null
           user_id?: string | null
+          variant_id?: string | null
         }
         Update: {
           created_at?: string | null
-          id?: string
-          imei?: string | null
-          is_assigned?: boolean | null
-          metadata?: Json | null
+          gigs_device_id?: string
+          imei?: string
+          imei_check_snapshot?: Json | null
+          is_assigned_to_user?: boolean
           name?: string | null
-          product_device_model_id?: string
+          product_id?: string | null
           updated_at?: string | null
           user_id?: string | null
+          variant_id?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "user_devices_product_device_model_id_fkey"
-            columns: ["product_device_model_id"]
+            foreignKeyName: "user_devices_product_id_fkey"
+            columns: ["product_id"]
             isOneToOne: false
-            referencedRelation: "product_device_models"
-            referencedColumns: ["id"]
+            referencedRelation: "device_product_models"
+            referencedColumns: ["product_id"]
           },
           {
             foreignKeyName: "user_devices_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "user_devices_variant_id_fkey"
+            columns: ["variant_id"]
+            isOneToOne: false
+            referencedRelation: "device_product_model_variants"
+            referencedColumns: ["variant_id"]
           },
         ]
       }
-      users: {
+      voucher_product_applicability: {
         Row: {
-          birthday: string | null
-          created_at: string | null
-          email: string
-          full_name: string | null
-          gigs_user_id: string | null
-          id: string
-          metadata: Json | null
-          preferred_locale: string | null
-          square_customer_id: string | null
-          updated_at: string | null
+          product_id: string
+          product_type: string
+          voucher_id: string
         }
         Insert: {
-          birthday?: string | null
-          created_at?: string | null
-          email: string
-          full_name?: string | null
-          gigs_user_id?: string | null
-          id?: string
-          metadata?: Json | null
-          preferred_locale?: string | null
-          square_customer_id?: string | null
-          updated_at?: string | null
+          product_id: string
+          product_type: string
+          voucher_id: string
         }
         Update: {
-          birthday?: string | null
-          created_at?: string | null
-          email?: string
-          full_name?: string | null
-          gigs_user_id?: string | null
-          id?: string
-          metadata?: Json | null
-          preferred_locale?: string | null
-          square_customer_id?: string | null
-          updated_at?: string | null
+          product_id?: string
+          product_type?: string
+          voucher_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "voucher_product_applicability_voucher_id_fkey"
+            columns: ["voucher_id"]
+            isOneToOne: false
+            referencedRelation: "vouchers"
+            referencedColumns: ["voucher_id"]
+          },
+        ]
       }
       vouchers: {
         Row: {
-          applicable_plans: string[] | null
           code: string
           created_at: string | null
           description: string | null
           discount_type: string
           discount_value: number
-          id: string
+          expires_at: string | null
+          gigs_voucher_id: string | null
           is_active: boolean
-          max_discount_amount: number | null
+          max_redemptions: number | null
           metadata: Json | null
-          min_purchase_amount: number | null
+          name: string
+          recurrence_duration_months: number | null
+          recurrence_type: string
+          stripe_coupon_id: string | null
+          times_redeemed: number | null
           updated_at: string | null
-          usage_count: number | null
-          usage_limit: number | null
-          valid_from: string | null
-          valid_until: string | null
+          voucher_id: string
         }
         Insert: {
-          applicable_plans?: string[] | null
           code: string
           created_at?: string | null
           description?: string | null
           discount_type: string
           discount_value: number
-          id: string
+          expires_at?: string | null
+          gigs_voucher_id?: string | null
           is_active?: boolean
-          max_discount_amount?: number | null
+          max_redemptions?: number | null
           metadata?: Json | null
-          min_purchase_amount?: number | null
+          name: string
+          recurrence_duration_months?: number | null
+          recurrence_type: string
+          stripe_coupon_id?: string | null
+          times_redeemed?: number | null
           updated_at?: string | null
-          usage_count?: number | null
-          usage_limit?: number | null
-          valid_from?: string | null
-          valid_until?: string | null
+          voucher_id?: string
         }
         Update: {
-          applicable_plans?: string[] | null
           code?: string
           created_at?: string | null
           description?: string | null
           discount_type?: string
           discount_value?: number
-          id?: string
+          expires_at?: string | null
+          gigs_voucher_id?: string | null
           is_active?: boolean
-          max_discount_amount?: number | null
+          max_redemptions?: number | null
           metadata?: Json | null
-          min_purchase_amount?: number | null
+          name?: string
+          recurrence_duration_months?: number | null
+          recurrence_type?: string
+          stripe_coupon_id?: string | null
+          times_redeemed?: number | null
           updated_at?: string | null
-          usage_count?: number | null
-          usage_limit?: number | null
-          valid_from?: string | null
-          valid_until?: string | null
+          voucher_id?: string
+        }
+        Relationships: []
+      }
+      waitlist_users: {
+        Row: {
+          created_at: string | null
+          email: string
+          first_name: string | null
+          interest: string | null
+          last_name: string | null
+          source: string | null
+          status: string
+          waitlist_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          first_name?: string | null
+          interest?: string | null
+          last_name?: string | null
+          source?: string | null
+          status?: string
+          waitlist_id?: string
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          first_name?: string | null
+          interest?: string | null
+          last_name?: string | null
+          source?: string | null
+          status?: string
+          waitlist_id?: string
         }
         Relationships: []
       }
@@ -1078,41 +1936,35 @@ export type Database = {
         Row: {
           created_at: string | null
           error_message: string | null
-          event_type: string
-          id: string
-          metadata: Json | null
+          event_id: string
           payload: Json
           processed_at: string | null
           retry_count: number | null
           source: string
           status: string
-          updated_at: string | null
+          type: string
         }
         Insert: {
           created_at?: string | null
           error_message?: string | null
-          event_type: string
-          id?: string
-          metadata?: Json | null
+          event_id: string
           payload: Json
           processed_at?: string | null
           retry_count?: number | null
           source: string
           status?: string
-          updated_at?: string | null
+          type: string
         }
         Update: {
           created_at?: string | null
           error_message?: string | null
-          event_type?: string
-          id?: string
-          metadata?: Json | null
+          event_id?: string
           payload?: Json
           processed_at?: string | null
           retry_count?: number | null
           source?: string
           status?: string
-          updated_at?: string | null
+          type?: string
         }
         Relationships: []
       }
@@ -1121,7 +1973,46 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      gtrgm_compress: {
+        Args: { "": unknown }
+        Returns: unknown
+      }
+      gtrgm_decompress: {
+        Args: { "": unknown }
+        Returns: unknown
+      }
+      gtrgm_in: {
+        Args: { "": unknown }
+        Returns: unknown
+      }
+      gtrgm_options: {
+        Args: { "": unknown }
+        Returns: undefined
+      }
+      gtrgm_out: {
+        Args: { "": unknown }
+        Returns: unknown
+      }
+      set_limit: {
+        Args: { "": number }
+        Returns: number
+      }
+      show_limit: {
+        Args: Record<PropertyKey, never>
+        Returns: number
+      }
+      show_trgm: {
+        Args: { "": string }
+        Returns: string[]
+      }
+      unaccent: {
+        Args: { "": string }
+        Returns: string
+      }
+      unaccent_init: {
+        Args: { "": unknown }
+        Returns: unknown
+      }
     }
     Enums: {
       [_ in never]: never
