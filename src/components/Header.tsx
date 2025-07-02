@@ -49,24 +49,24 @@ const Header = () => {
 
           {/* Right side actions - moved to far right */}
           <div className="hidden lg:flex items-center space-x-4 ml-auto">
-            <div className="flex items-center space-x-1 text-gray-700 hover:text-ignis-purple transition-colors cursor-pointer">
+            <Link to="/store-locator" className="flex items-center space-x-1 text-gray-700 hover:text-ignis-purple transition-colors">
               <MapPin size={18} />
               <span className="font-light text-sm">Find a store</span>
-            </div>
-            <div className="flex items-center space-x-1 text-gray-700 hover:text-ignis-purple transition-colors cursor-pointer">
+            </Link>
+            <Link to="/support" className="flex items-center space-x-1 text-gray-700 hover:text-ignis-purple transition-colors">
               <MessageCircle size={18} />
               <span className="font-light text-sm">Contact & support</span>
-            </div>
-            <div className="flex items-center space-x-1 text-gray-700 hover:text-ignis-purple transition-colors cursor-pointer">
+            </Link>
+            <Link to="/checkout" className="flex items-center space-x-1 text-gray-700 hover:text-ignis-purple transition-colors">
               <ShoppingCart size={18} />
               <span className="font-light text-sm">Cart</span>
-            </div>
+            </Link>
             <Search size={18} className="text-gray-700 hover:text-ignis-purple transition-colors cursor-pointer" />
             <div className="flex items-center space-x-1 cursor-pointer">
-              <button className="flex items-center space-x-2 text-gray-700 hover:text-ignis-purple transition-colors font-light text-sm">
+              <Link to="/dashboard" className="flex items-center space-x-2 text-gray-700 hover:text-ignis-purple transition-colors font-light text-sm">
                 <User size={16} />
                 <span>My account</span>
-              </button>
+              </Link>
             </div>
           </div>
 
@@ -91,8 +91,12 @@ const Header = () => {
               <a href="#coverage" className="font-light text-gray-700">Coverage</a>
               <Link to="/join-us" className="font-light text-gray-700">Join Us</Link>
               <div className="flex flex-col space-y-2 pt-4">
-                <Button variant="outline" className="font-light">Find a store</Button>
-                <Button className="bg-ignis-gradient text-white font-light">My account</Button>
+                <Link to="/store-locator">
+                  <Button variant="outline" className="font-light w-full">Find a store</Button>
+                </Link>
+                <Link to="/dashboard">
+                  <Button className="bg-ignis-gradient text-white font-light w-full">My account</Button>
+                </Link>
               </div>
             </nav>
           </div>

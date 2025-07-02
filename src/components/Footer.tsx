@@ -45,11 +45,11 @@ const Footer = () => {
           <div className="space-y-4">
             <h3 className="font-normal text-lg text-gray-800">Switch to Ignis</h3>
             <ul className="space-y-2 font-light text-gray-600">
-              <li><a href="#" className="hover:text-gray-800 transition-colors">Support</a></li>
-              <li><a href="#" className="hover:text-gray-800 transition-colors">Help Guides</a></li>
-              <li><a href="#" className="hover:text-gray-800 transition-colors">Track your order</a></li>
-              <li><a href="#" className="hover:text-gray-800 transition-colors">What is Sim/Esim</a></li>
-              <li><a href="#" className="hover:text-gray-800 transition-colors">Physical Sim Activation</a></li>
+              <li><Link to="/support" className="hover:text-gray-800 transition-colors">Support</Link></li>
+              <li><Link to="/support" className="hover:text-gray-800 transition-colors">Help Guides</Link></li>
+              <li><Link to="/support" className="hover:text-gray-800 transition-colors">Track your order</Link></li>
+              <li><Link to="/support" className="hover:text-gray-800 transition-colors">What is Sim/Esim</Link></li>
+              <li><Link to="/support" className="hover:text-gray-800 transition-colors">Physical Sim Activation</Link></li>
             </ul>
           </div>
 

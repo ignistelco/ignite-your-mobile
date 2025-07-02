@@ -14,6 +14,10 @@ import BYOD from "./pages/BYOD";
 import Legal from "./pages/Legal";
 import Internet from "./pages/Internet";
 import PulseOS from "./pages/PulseOS";
+import Support from "./pages/Support";
+import Dashboard from "./pages/Dashboard";
+import StoreLocator from "./pages/StoreLocator";
+import Checkout from "./pages/Checkout";
 import NotFound from "./pages/NotFound";
 import AdminLayout from "./pages/admin/AdminLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -39,6 +43,10 @@ const App = () => (
             <Route path="/legal" element={<Legal />} />
             <Route path="/internet" element={<Internet />} />
             <Route path="/pulseos" element={<PulseOS />} />
+            <Route path="/support" element={<Support />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/store-locator" element={<StoreLocator />} />
+            <Route path="/checkout" element={<Checkout />} />
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<AdminDashboard />} />
               <Route path="product-plans" element={<ProductPlanList />} />
