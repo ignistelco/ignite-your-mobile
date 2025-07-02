@@ -1,19 +1,23 @@
 
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
-import type { User } from '@/types/database';
+import type { Database } from '@/integrations/supabase/types';
+
+// Use the profiles table which represents users in this schema
+type Profile = Database['public']['Tables']['profiles']['Row'];
+type ProfileInsert = Database['public']['Tables']['profiles']['Insert'];
 
 export function useUsers() {
   return useQuery({
     queryKey: ['users'],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from('users')
+        .from('profiles')
         .select('*')
         .order('created_at', { ascending: false });
       
       if (error) throw error;
-      return data as User[];
+      return data;
     },
   });
 }
@@ -23,13 +27,13 @@ export function useUser(id: string) {
     queryKey: ['user', id],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from('users')
+        .from('profiles')
         .select('*')
-        .eq('id', id)
+        .eq('user_id', id)
         .single();
       
       if (error) throw error;
-      return data as User;
+      return data;
     },
     enabled: !!id,
   });
@@ -39,15 +43,15 @@ export function useCreateUser() {
   const queryClient = useQueryClient();
   
   return useMutation({
-    mutationFn: async (user: Omit<User, 'id' | 'created_at' | 'updated_at'>) => {
+    mutationFn: async (user: ProfileInsert) => {
       const { data, error } = await supabase
-        .from('users')
+        .from('profiles')
         .insert(user)
         .select()
         .single();
       
       if (error) throw error;
-      return data as User;
+      return data;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['users'] });
@@ -59,20 +63,20 @@ export function useUpdateUser() {
   const queryClient = useQueryClient();
   
   return useMutation({
-    mutationFn: async ({ id, ...updates }: Partial<User> & { id: string }) => {
+    mutationFn: async ({ user_id, ...updates }: Partial<Profile> & { user_id: string }) => {
       const { data, error } = await supabase
-        .from('users')
+        .from('profiles')
         .update(updates)
-        .eq('id', id)
+        .eq('user_id', user_id)
         .select()
         .single();
       
       if (error) throw error;
-      return data as User;
+      return data;
     },
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ['users'] });
-      queryClient.invalidateQueries({ queryKey: ['user', data.id] });
+      queryClient.invalidateQueries({ queryKey: ['user', data.user_id] });
     },
   });
 }
