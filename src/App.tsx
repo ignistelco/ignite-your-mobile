@@ -5,6 +5,15 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./components/AuthProvider";
 import Index from "./pages/Index";
+import Plans from "./pages/Plans";
+import Devices from "./pages/Devices";
+import Deals from "./pages/Deals";
+import JoinUs from "./pages/JoinUs";
+import Business from "./pages/Business";
+import BYOD from "./pages/BYOD";
+import Legal from "./pages/Legal";
+import Internet from "./pages/Internet";
+import PulseOS from "./pages/PulseOS";
 import NotFound from "./pages/NotFound";
 import AdminLayout from "./pages/admin/AdminLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -21,6 +30,15 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/plans" element={<Plans />} />
+            <Route path="/devices" element={<Devices />} />
+            <Route path="/deals" element={<Deals />} />
+            <Route path="/join-us" element={<JoinUs />} />
+            <Route path="/business" element={<Business />} />
+            <Route path="/byod" element={<BYOD />} />
+            <Route path="/legal" element={<Legal />} />
+            <Route path="/internet" element={<Internet />} />
+            <Route path="/pulseos" element={<PulseOS />} />
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<AdminDashboard />} />
               <Route path="product-plans" element={<ProductPlanList />} />

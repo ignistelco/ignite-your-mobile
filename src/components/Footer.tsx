@@ -1,5 +1,6 @@
 
 import { Facebook, Instagram, Linkedin } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -32,11 +33,11 @@ const Footer = () => {
           <div className="space-y-4">
             <h3 className="font-normal text-lg text-gray-800">Shop</h3>
             <ul className="space-y-2 font-light text-gray-600">
-              <li><a href="#" className="hover:text-gray-800 transition-colors">Plans</a></li>
-              <li><a href="#" className="hover:text-gray-800 transition-colors">Devices</a></li>
-              <li><a href="#" className="hover:text-gray-800 transition-colors">BYOD</a></li>
+              <li><Link to="/plans" className="hover:text-gray-800 transition-colors">Plans</Link></li>
+              <li><Link to="/devices" className="hover:text-gray-800 transition-colors">Devices</Link></li>
+              <li><Link to="/byod" className="hover:text-gray-800 transition-colors">BYOD</Link></li>
               <li><a href="#" className="hover:text-gray-800 transition-colors">International Calling</a></li>
-              <li><a href="#" className="hover:text-gray-800 transition-colors">Deals</a></li>
+              <li><Link to="/deals" className="hover:text-gray-800 transition-colors">Deals</Link></li>
             </ul>
           </div>
 
@@ -56,10 +57,10 @@ const Footer = () => {
           <div className="space-y-4">
             <h3 className="font-normal text-lg text-gray-800">Join Us</h3>
             <ul className="space-y-2 font-light text-gray-600">
-              <li><a href="#" className="hover:text-gray-800 transition-colors">Franchise Retailer</a></li>
-              <li><a href="#" className="hover:text-gray-800 transition-colors">Affiliate Marketing Program</a></li>
-              <li><a href="#" className="hover:text-gray-800 transition-colors">Influencer Program</a></li>
-              <li><a href="#" className="hover:text-gray-800 transition-colors">Pre-order PulseOS Devices</a></li>
+              <li><Link to="/join-us" className="hover:text-gray-800 transition-colors">Franchise Retailer</Link></li>
+              <li><Link to="/join-us" className="hover:text-gray-800 transition-colors">Affiliate Marketing Program</Link></li>
+              <li><Link to="/join-us" className="hover:text-gray-800 transition-colors">Influencer Program</Link></li>
+              <li><Link to="/join-us" className="hover:text-gray-800 transition-colors">Pre-order PulseOS Devices</Link></li>
             </ul>
           </div>
 
@@ -67,13 +68,13 @@ const Footer = () => {
           <div className="space-y-4">
             <h3 className="font-normal text-lg text-gray-800">Legal</h3>
             <ul className="space-y-2 font-light text-gray-600">
-              <li><a href="#" className="hover:text-gray-800 transition-colors">General Terms & Conditions</a></li>
-              <li><a href="#" className="hover:text-gray-800 transition-colors">Acceptable Use Policy</a></li>
-              <li><a href="#" className="hover:text-gray-800 transition-colors">Product Terms</a></li>
-              <li><a href="#" className="hover:text-gray-800 transition-colors">Social Media Terms of Service</a></li>
-              <li><a href="#" className="hover:text-gray-800 transition-colors">Privacy Notice</a></li>
-              <li><a href="#" className="hover:text-gray-800 transition-colors">Phone Return Policy</a></li>
-              <li><a href="#" className="hover:text-gray-800 transition-colors">30 Day Money Back Guarantee</a></li>
+              <li><Link to="/legal" className="hover:text-gray-800 transition-colors">General Terms & Conditions</Link></li>
+              <li><Link to="/legal" className="hover:text-gray-800 transition-colors">Acceptable Use Policy</Link></li>
+              <li><Link to="/legal" className="hover:text-gray-800 transition-colors">Product Terms</Link></li>
+              <li><Link to="/legal" className="hover:text-gray-800 transition-colors">Social Media Terms of Service</Link></li>
+              <li><Link to="/legal" className="hover:text-gray-800 transition-colors">Privacy Notice</Link></li>
+              <li><Link to="/legal" className="hover:text-gray-800 transition-colors">Phone Return Policy</Link></li>
+              <li><Link to="/legal" className="hover:text-gray-800 transition-colors">30 Day Money Back Guarantee</Link></li>
             </ul>
           </div>
         </div>
@@ -87,9 +88,9 @@ const Footer = () => {
               <p className="font-light text-gray-600 mb-2">
                 © 2024 Ignis Mobile. All rights reserved.
               </p>
-              <a href="/admin" className="font-light text-gray-600 hover:text-gray-800 transition-colors text-sm">
+              <Link to="/admin" className="font-light text-gray-600 hover:text-gray-800 transition-colors text-sm">
                 Admin Portal
-              </a>
+              </Link>
             </div>
 
             {/* Social Media Icons */}

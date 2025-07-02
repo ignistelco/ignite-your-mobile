@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Search, ShoppingCart, MapPin, MessageCircle, User, ChevronDown } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -13,10 +14,10 @@ const Header = () => {
         <div className="container mx-auto px-4 lg:px-8">
           <div className="flex items-center justify-between h-10">
             <div className="flex items-center space-x-8 text-sm font-light text-gray-700">
-              <a href="#" className="hover:text-ignis-purple transition-colors">PULSEOS</a>
-              <a href="#" className="hover:text-ignis-purple transition-colors">BUSINESS</a>
-              <a href="#" className="hover:text-ignis-purple transition-colors">BRING YOUR OWN DEVICE</a>
-              <a href="#" className="hover:text-ignis-purple transition-colors">INTERNET</a>
+              <Link to="/pulseos" className="hover:text-ignis-purple transition-colors">PULSEOS</Link>
+              <Link to="/business" className="hover:text-ignis-purple transition-colors">BUSINESS</Link>
+              <Link to="/byod" className="hover:text-ignis-purple transition-colors">BRING YOUR OWN DEVICE</Link>
+              <Link to="/internet" className="hover:text-ignis-purple transition-colors">INTERNET</Link>
             </div>
             
             {/* Phone number - far right */}
@@ -32,18 +33,18 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Brand Text Only - moved much further left with more space */}
           <div className="flex items-center mr-24">
-            <span className="text-2xl font-light text-gray-900">
+            <Link to="/" className="text-2xl font-light text-gray-900">
               Ignis Mobile
-            </span>
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
-            <span className="font-light text-gray-900 cursor-pointer hover:text-ignis-purple transition-colors">Plans</span>
-            <span className="font-light text-gray-900 cursor-pointer hover:text-ignis-purple transition-colors">Devices</span>
-            <span className="font-light text-gray-900 cursor-pointer hover:text-ignis-purple transition-colors">Deals</span>
+            <Link to="/plans" className="font-light text-gray-900 cursor-pointer hover:text-ignis-purple transition-colors">Plans</Link>
+            <Link to="/devices" className="font-light text-gray-900 cursor-pointer hover:text-ignis-purple transition-colors">Devices</Link>
+            <Link to="/deals" className="font-light text-gray-900 cursor-pointer hover:text-ignis-purple transition-colors">Deals</Link>
             <span className="font-light text-gray-900 cursor-pointer hover:text-ignis-purple transition-colors">Coverage</span>
-            <span className="font-light text-gray-900 cursor-pointer hover:text-ignis-purple transition-colors">Join Us</span>
+            <Link to="/join-us" className="font-light text-gray-900 cursor-pointer hover:text-ignis-purple transition-colors">Join Us</Link>
           </nav>
 
           {/* Right side actions - moved to far right */}
@@ -84,11 +85,11 @@ const Header = () => {
         {isMenuOpen && (
           <div className="lg:hidden py-4 border-t border-gray-200 bg-white">
             <nav className="flex flex-col space-y-4">
-              <a href="#plans" className="font-light text-gray-700">Plans</a>
-              <a href="#devices" className="font-light text-gray-700">Devices</a>
-              <a href="#deals" className="font-light text-gray-700">Deals</a>
+              <Link to="/plans" className="font-light text-gray-700">Plans</Link>
+              <Link to="/devices" className="font-light text-gray-700">Devices</Link>
+              <Link to="/deals" className="font-light text-gray-700">Deals</Link>
               <a href="#coverage" className="font-light text-gray-700">Coverage</a>
-              <a href="#join" className="font-light text-gray-700">Join Us</a>
+              <Link to="/join-us" className="font-light text-gray-700">Join Us</Link>
               <div className="flex flex-col space-y-2 pt-4">
                 <Button variant="outline" className="font-light">Find a store</Button>
                 <Button className="bg-ignis-gradient text-white font-light">My account</Button>
