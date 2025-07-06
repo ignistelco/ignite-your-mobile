@@ -29,7 +29,7 @@ export function useOrder(id: string) {
       const { data, error } = await supabase
         .from('orders')
         .select('*')
-        .eq('order_id', id)
+        .eq('id', id)
         .single();
       
       if (error) throw error;
@@ -63,11 +63,11 @@ export function useUpdateOrder() {
   const queryClient = useQueryClient();
   
   return useMutation({
-    mutationFn: async ({ order_id, ...updates }: Partial<Order> & { order_id: string }) => {
+    mutationFn: async ({ id, ...updates }: Partial<Order> & { id: string }) => {
       const { data, error } = await supabase
         .from('orders')
         .update(updates)
-        .eq('order_id', order_id)
+        .eq('id', id)
         .select()
         .single();
       
@@ -76,7 +76,7 @@ export function useUpdateOrder() {
     },
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ['orders'] });
-      queryClient.invalidateQueries({ queryKey: ['order', data.order_id] });
+      queryClient.invalidateQueries({ queryKey: ['order', data.id] });
     },
   });
 }

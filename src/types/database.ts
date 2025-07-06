@@ -128,9 +128,9 @@ export interface GigsPlan {
   updated_at?: string;
 }
 
-// Updated to match actual database schema
+// Updated to match actual database schema - using 'id' not 'product_id'
 export interface ProductPlan {
-  product_id: string;
+  id: string;
   name: string;
   tagline?: string;
   features?: string[];
@@ -209,9 +209,9 @@ export interface Quote {
   updated_at?: string;
 }
 
-// Updated to match actual database schema
+// Updated to match actual database schema - using 'id' not 'order_id'
 export interface Order {
-  order_id: string;
+  id: string;
   user_id: string;
   cart_id?: string;
   purchased_plan_product_id: string;

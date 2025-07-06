@@ -30,7 +30,7 @@ export function useProductPlan(id: string) {
       const { data, error } = await supabase
         .from('plan_product_models')
         .select('*')
-        .eq('product_id', id)
+        .eq('id', id)
         .single();
       
       if (error) throw error;
@@ -64,11 +64,11 @@ export function useUpdateProductPlan() {
   const queryClient = useQueryClient();
   
   return useMutation({
-    mutationFn: async ({ product_id, ...updates }: Partial<PlanProductModel> & { product_id: string }) => {
+    mutationFn: async ({ id, ...updates }: Partial<PlanProductModel> & { id: string }) => {
       const { data, error } = await supabase
         .from('plan_product_models')
         .update(updates)
-        .eq('product_id', product_id)
+        .eq('id', id)
         .select()
         .single();
       
@@ -77,7 +77,7 @@ export function useUpdateProductPlan() {
     },
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ['product-plans'] });
-      queryClient.invalidateQueries({ queryKey: ['product-plan', data.product_id] });
+      queryClient.invalidateQueries({ queryKey: ['product-plan', data.id] });
     },
   });
 }
