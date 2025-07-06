@@ -7,6 +7,7 @@ import { AuthProvider } from "./components/AuthProvider";
 import Index from "./pages/Index";
 import Plans from "./pages/Plans";
 import Devices from "./pages/Devices";
+import DeviceDetail from "./pages/DeviceDetail";
 import Deals from "./pages/Deals";
 import JoinUs from "./pages/JoinUs";
 import Business from "./pages/Business";
@@ -36,6 +37,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/plans" element={<Plans />} />
             <Route path="/devices" element={<Devices />} />
+            <Route path="/devices/:slug" element={<DeviceDetail />} />
             <Route path="/deals" element={<Deals />} />
             <Route path="/join-us" element={<JoinUs />} />
             <Route path="/business" element={<Business />} />
