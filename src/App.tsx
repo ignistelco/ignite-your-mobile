@@ -21,7 +21,14 @@ import StoreLocator from "./pages/StoreLocator";
 import Checkout from "./pages/Checkout";
 import NotFound from "./pages/NotFound";
 import AdminLayout from "./pages/admin/AdminLayout";
+import AdminLoginPage from "./pages/admin/AdminLoginPage";
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import DeviceListPage from "./pages/admin/DeviceListPage";
+import DeviceFormPage from "./pages/admin/DeviceFormPage";
+import FilterManagerPage from "./pages/admin/FilterManagerPage";
+import PlanFormPage from "./pages/admin/PlanFormPage";
+import AddonManagerPage from "./pages/admin/AddonManagerPage";
+import GigsTestPage from "./pages/admin/GigsTestPage";
 import ProductPlanList from "./pages/admin/ProductPlanList";
 import ProductPlanCreate from "./pages/admin/ProductPlanCreate";
 
@@ -49,8 +56,19 @@ const App = () => (
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/store-locator" element={<StoreLocator />} />
             <Route path="/checkout" element={<Checkout />} />
+            
+            {/* Admin Routes */}
+            <Route path="/admin/login" element={<AdminLoginPage />} />
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<AdminDashboard />} />
+              <Route path="dashboard" element={<AdminDashboard />} />
+              <Route path="devices" element={<DeviceListPage />} />
+              <Route path="devices/new" element={<DeviceFormPage />} />
+              <Route path="devices/:id" element={<DeviceFormPage />} />
+              <Route path="filters" element={<FilterManagerPage />} />
+              <Route path="plans/:id" element={<PlanFormPage />} />
+              <Route path="addons" element={<AddonManagerPage />} />
+              <Route path="dev/gigs-test" element={<GigsTestPage />} />
               <Route path="product-plans" element={<ProductPlanList />} />
               <Route path="product-plans/create" element={<ProductPlanCreate />} />
               <Route path="device-models" element={<div>Device Models - Coming Soon</div>} />
@@ -59,6 +77,7 @@ const App = () => (
               <Route path="orders" element={<div>Orders Management - Coming Soon</div>} />
               <Route path="sync" element={<div>Sync Data - Coming Soon</div>} />
             </Route>
+            
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
