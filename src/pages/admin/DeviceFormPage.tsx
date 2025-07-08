@@ -73,8 +73,10 @@ const DeviceFormPage = () => {
     setLoading(true);
     try {
       const payload = {
-        ...data,
+        name: data.name, // Ensure name is always included
+        is_active: data.is_active,
         specs: data.specs || {},
+        gigs_device_model_id: data.gigs_device_model_id || null,
       };
 
       let result;
