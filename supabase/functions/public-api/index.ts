@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -6,148 +7,19 @@ const corsHeaders = {
   'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
 };
 
-// Mock data for development
-const mockFilters = {
-  categories: ['Smartphone', 'Tablet', 'Smartwatch', 'Earbuds', 'Accessories'],
-  manufacturers: ['Apple', 'Samsung', 'Google', 'OnePlus', 'Xiaomi'],
-  priceRange: [0, 2000],
-  storage: ['64GB', '128GB', '256GB', '512GB', '1TB'],
-  colors: ['Black', 'White', 'Blue', 'Red', 'Purple', 'Green', 'Gold']
-};
+// Helper function to create slug from name
+function createSlug(name: string): string {
+  return name.toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .trim();
+}
 
-const mockDevices = [
-  {
-    id: '1',
-    slug: 'iphone-15-pro',
-    name: 'iPhone 15 Pro',
-    manufacturer: 'Apple',
-    category: 'Smartphone',
-    base_price: 999,
-    images: [
-      'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=500',
-      'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500'
-    ],
-    badge: 'New',
-    description: 'The most Pro iPhone ever, featuring titanium design and the powerful A17 Pro chip.',
-    variants: [
-      { id: '1-1', color: 'Black', storage: '128GB', price: 999, stock_status: 'in_stock' },
-      { id: '1-2', color: 'Black', storage: '256GB', price: 1099, stock_status: 'in_stock' },
-      { id: '1-3', color: 'White', storage: '128GB', price: 999, stock_status: 'low_stock' },
-      { id: '1-4', color: 'Blue', storage: '512GB', price: 1299, stock_status: 'in_stock' }
-    ],
-    specifications: [
-      {
-        category: 'Display',
-        specs: [
-          { name: 'Screen Size', value: '6.1 inches' },
-          { name: 'Resolution', value: '2556 x 1179 pixels' },
-          { name: 'Technology', value: 'Super Retina XDR OLED' }
-        ]
-      },
-      {
-        category: 'Performance',
-        specs: [
-          { name: 'Chip', value: 'A17 Pro' },
-          { name: 'RAM', value: '8GB' },
-          { name: 'CPU', value: '6-core CPU with 2 performance and 4 efficiency cores' }
-        ]
-      }
-    ],
-    features: [
-      { name: 'Pro Camera System', description: '48MP Main | 12MP Ultra Wide | 12MP Telephoto', icon: '📸' },
-      { name: 'Action Button', description: 'Customizable button for quick actions', icon: '🔘' },
-      { name: 'USB-C', description: 'Universal connectivity with USB-C', icon: '🔌' },
-      { name: 'Titanium Design', description: 'Strong and lightweight titanium build', icon: '✨' }
-    ]
-  },
-  {
-    id: '2',
-    slug: 'galaxy-s24-ultra',
-    name: 'Galaxy S24 Ultra',
-    manufacturer: 'Samsung',
-    category: 'Smartphone',
-    base_price: 1199,
-    images: [
-      'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=500',
-      'https://images.unsplash.com/photo-1580910051074-3eb694886505?w=500'
-    ],
-    badge: 'Popular',
-    description: 'The ultimate Galaxy experience with S Pen, incredible cameras, and AI features.',
-    variants: [
-      { id: '2-1', color: 'Black', storage: '256GB', price: 1199, stock_status: 'in_stock' },
-      { id: '2-2', color: 'Purple', storage: '512GB', price: 1399, stock_status: 'in_stock' }
-    ],
-    specifications: [
-      {
-        category: 'Display',
-        specs: [
-          { name: 'Screen Size', value: '6.8 inches' },
-          { name: 'Resolution', value: '3120 x 1440 pixels' },
-          { name: 'Technology', value: 'Dynamic AMOLED 2X' }
-        ]
-      }
-    ],
-    features: [
-      { name: 'S Pen Included', description: 'Built-in S Pen for productivity and creativity', icon: '✏️' },
-      { name: '200MP Camera', description: 'Industry-leading camera system', icon: '📷' }
-    ]
-  },
-  {
-    id: '3',
-    slug: 'pixel-8-pro',
-    name: 'Pixel 8 Pro',
-    manufacturer: 'Google',
-    category: 'Smartphone',
-    base_price: 899,
-    images: [
-      'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500'
-    ],
-    description: 'Google AI, Pixel camera magic, and helpful features in every photo.',
-    variants: [
-      { id: '3-1', color: 'Blue', storage: '128GB', price: 899, stock_status: 'in_stock' },
-      { id: '3-2', color: 'White', storage: '256GB', price: 999, stock_status: 'out_of_stock' }
-    ],
-    specifications: [],
-    features: [
-      { name: 'Magic Eraser', description: 'Remove unwanted objects from photos', icon: '🪄' },
-      { name: 'Call Screen', description: 'Google Assistant answers spam calls', icon: '📞' }
-    ]
-  }
-];
-
-const mockPlans = [
-  {
-    id: '1',
-    name: 'Essential',
-    description: 'Perfect for light users',
-    data_amount: '10GB',
-    price_monthly: 25,
-    price_yearly: 250,
-    features: ['5G Network', 'Mobile Hotspot', 'Unlimited Talk & Text'],
-    is_unlimited: false
-  },
-  {
-    id: '2',
-    name: 'Unlimited Pro',
-    description: 'Most popular plan',
-    data_amount: 'Unlimited',
-    price_monthly: 55,
-    price_yearly: 550,
-    features: ['5G Ultra Wideband', 'Premium Mobile Hotspot', 'International Roaming'],
-    is_unlimited: true,
-    is_popular: true
-  },
-  {
-    id: '3',
-    name: 'Unlimited Max',
-    description: 'For power users',
-    data_amount: 'Unlimited',
-    price_monthly: 75,
-    price_yearly: 750,
-    features: ['Priority 5G', '100GB Premium Hotspot', 'Global Roaming', 'Premium Streaming'],
-    is_unlimited: true
-  }
-];
+// Helper function to format price from cents
+function formatPrice(cents: number): number {
+  return Math.round(cents / 100);
+}
 
 serve(async (req) => {
   // Handle CORS preflight requests
@@ -156,58 +28,168 @@ serve(async (req) => {
   }
 
   try {
+    const supabaseClient = createClient(
+      Deno.env.get("SUPABASE_URL") ?? "",
+      Deno.env.get("SUPABASE_ANON_KEY") ?? ""
+    );
+
     const { endpoint, ...params } = await req.json();
 
     switch (endpoint) {
       case 'filters':
+        // Get dynamic filters from database
+        const { data: devices } = await supabaseClient
+          .from('device_product_models')
+          .select(`
+            *, 
+            device_product_model_variants(*)
+          `)
+          .eq('is_active', true)
+          .is('deleted_at', null);
+
+        const { data: gigs_devices } = await supabaseClient
+          .from('gigs_device_models')
+          .select('*');
+
+        // Extract unique values for filters
+        const categories = [...new Set((devices || []).map(d => d.specs?.category || 'Smartphone'))];
+        const manufacturers = [...new Set((gigs_devices || []).map(g => g.brand))];
+        const storage = [...new Set((devices || []).flatMap(d => 
+          (d.device_product_model_variants || []).map(v => `${v.storage_gb}GB`)
+        ))].sort((a, b) => parseInt(a) - parseInt(b));
+        const colors = [...new Set((devices || []).flatMap(d => 
+          (d.device_product_model_variants || []).map(v => v.color)
+        ))];
+        
+        // Calculate price range
+        const allPrices = (devices || []).flatMap(d => 
+          (d.device_product_model_variants || []).map(v => formatPrice(v.base_price_cents))
+        );
+        const minPrice = Math.min(...allPrices, 0);
+        const maxPrice = Math.max(...allPrices, 2000);
+
+        const filters = {
+          categories: categories.length > 0 ? categories : ['Smartphone', 'Tablet', 'Smartwatch'],
+          manufacturers: manufacturers.length > 0 ? manufacturers : ['Apple', 'Samsung', 'Google'],
+          priceRange: [minPrice, maxPrice],
+          storage: storage.length > 0 ? storage : ['64GB', '128GB', '256GB', '512GB', '1TB'],
+          colors: colors.length > 0 ? colors : ['Black', 'White', 'Blue', 'Red', 'Purple']
+        };
+
         return new Response(
-          JSON.stringify(mockFilters),
+          JSON.stringify(filters),
           { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
 
       case 'devices':
-        const { filters = {}, page = 1, limit = 12 } = params;
-        let filteredDevices = [...mockDevices];
+        const { filters: deviceFilters = {}, page = 1, limit = 12 } = params;
+
+        // Query devices with variants
+        let query = supabaseClient
+          .from('device_product_models')
+          .select(`
+            *,
+            device_product_model_variants(*)
+          `)
+          .eq('is_active', true)
+          .is('deleted_at', null);
+
+        const { data: deviceData, error: deviceError } = await query;
+        
+        if (deviceError) {
+          console.error('Device query error:', deviceError);
+          throw deviceError;
+        }
+
+        // Get GIGS device data for additional info
+        const { data: gigsData } = await supabaseClient
+          .from('gigs_device_models')
+          .select('*');
+
+        // Transform database data to frontend format
+        let transformedDevices = (deviceData || []).map(device => {
+          const gigsDevice = gigsData?.find(g => g.gigs_device_model_id === device.gigs_device_model_id);
+          const variants = (device.device_product_model_variants || [])
+            .filter(v => v.is_active)
+            .map(v => ({
+              id: v.id,
+              color: v.color,
+              storage: `${v.storage_gb}GB`,
+              price: formatPrice(v.base_price_cents),
+              stock_status: 'in_stock' // Default status, can be made dynamic later
+            }));
+
+          const basePrice = variants.length > 0 ? Math.min(...variants.map(v => v.price)) : 0;
+          
+          return {
+            id: device.id,
+            slug: createSlug(device.name),
+            name: device.name,
+            manufacturer: gigsDevice?.brand || 'Unknown',
+            category: device.specs?.category || 'Smartphone',
+            base_price: basePrice,
+            images: device.specs?.images || [
+              'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500'
+            ],
+            badge: device.specs?.badge || undefined,
+            description: device.specs?.description || `Experience the latest technology with the ${device.name}.`,
+            variants,
+            specifications: device.specs?.specifications || [],
+            features: device.specs?.features || []
+          };
+        });
 
         // Apply filters
-        if (filters.categories?.length > 0) {
-          filteredDevices = filteredDevices.filter(device => 
-            filters.categories.includes(device.category)
+        if (deviceFilters.categories?.length > 0) {
+          transformedDevices = transformedDevices.filter(device => 
+            deviceFilters.categories.includes(device.category)
           );
         }
 
-        if (filters.manufacturers?.length > 0) {
-          filteredDevices = filteredDevices.filter(device => 
-            filters.manufacturers.includes(device.manufacturer)
+        if (deviceFilters.manufacturers?.length > 0) {
+          transformedDevices = transformedDevices.filter(device => 
+            deviceFilters.manufacturers.includes(device.manufacturer)
           );
         }
 
-        if (filters.priceRange) {
-          const [minPrice, maxPrice] = filters.priceRange;
-          filteredDevices = filteredDevices.filter(device => 
+        if (deviceFilters.priceRange) {
+          const [minPrice, maxPrice] = deviceFilters.priceRange;
+          transformedDevices = transformedDevices.filter(device => 
             device.base_price >= minPrice && device.base_price <= maxPrice
           );
         }
 
-        if (filters.search) {
-          const searchTerm = filters.search.toLowerCase();
-          filteredDevices = filteredDevices.filter(device => 
+        if (deviceFilters.search) {
+          const searchTerm = deviceFilters.search.toLowerCase();
+          transformedDevices = transformedDevices.filter(device => 
             device.name.toLowerCase().includes(searchTerm) ||
             device.manufacturer.toLowerCase().includes(searchTerm)
           );
         }
 
+        if (deviceFilters.storage?.length > 0) {
+          transformedDevices = transformedDevices.filter(device => 
+            device.variants.some(v => deviceFilters.storage.includes(v.storage))
+          );
+        }
+
+        if (deviceFilters.colors?.length > 0) {
+          transformedDevices = transformedDevices.filter(device => 
+            device.variants.some(v => deviceFilters.colors.includes(v.color))
+          );
+        }
+
         // Apply sorting
-        if (filters.sortBy) {
-          switch (filters.sortBy) {
+        if (deviceFilters.sortBy) {
+          switch (deviceFilters.sortBy) {
             case 'price-low':
-              filteredDevices.sort((a, b) => a.base_price - b.base_price);
+              transformedDevices.sort((a, b) => a.base_price - b.base_price);
               break;
             case 'price-high':
-              filteredDevices.sort((a, b) => b.base_price - a.base_price);
+              transformedDevices.sort((a, b) => b.base_price - a.base_price);
               break;
             case 'name':
-              filteredDevices.sort((a, b) => a.name.localeCompare(b.name));
+              transformedDevices.sort((a, b) => a.name.localeCompare(b.name));
               break;
             case 'newest':
               // Keep current order (newest first)
@@ -220,37 +202,120 @@ serve(async (req) => {
 
         // Pagination
         const startIndex = (page - 1) * limit;
-        const paginatedDevices = filteredDevices.slice(startIndex, startIndex + limit);
+        const paginatedDevices = transformedDevices.slice(startIndex, startIndex + limit);
 
         return new Response(
           JSON.stringify({
             devices: paginatedDevices,
-            total: filteredDevices.length,
+            total: transformedDevices.length,
             page,
-            totalPages: Math.ceil(filteredDevices.length / limit)
+            totalPages: Math.ceil(transformedDevices.length / limit)
           }),
           { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
 
       case 'device':
         const { slug } = params;
-        const device = mockDevices.find(d => d.slug === slug);
         
-        if (!device) {
+        // Get all devices and find by slug
+        const { data: allDevices } = await supabaseClient
+          .from('device_product_models')
+          .select(`
+            *,
+            device_product_model_variants(*)
+          `)
+          .eq('is_active', true)
+          .is('deleted_at', null);
+
+        const { data: allGigsData } = await supabaseClient
+          .from('gigs_device_models')
+          .select('*');
+
+        const deviceMatch = (allDevices || []).find(d => createSlug(d.name) === slug);
+        
+        if (!deviceMatch) {
           return new Response(
             JSON.stringify({ error: 'Device not found' }),
             { status: 404, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
           );
         }
 
+        const gigsDeviceMatch = allGigsData?.find(g => g.gigs_device_model_id === deviceMatch.gigs_device_model_id);
+        const deviceVariants = (deviceMatch.device_product_model_variants || [])
+          .filter(v => v.is_active)
+          .map(v => ({
+            id: v.id,
+            color: v.color,
+            storage: `${v.storage_gb}GB`,
+            price: formatPrice(v.base_price_cents),
+            stock_status: 'in_stock'
+          }));
+
+        const basePrice = deviceVariants.length > 0 ? Math.min(...deviceVariants.map(v => v.price)) : 0;
+
+        const deviceDetail = {
+          id: deviceMatch.id,
+          slug: createSlug(deviceMatch.name),
+          name: deviceMatch.name,
+          manufacturer: gigsDeviceMatch?.brand || 'Unknown',
+          category: deviceMatch.specs?.category || 'Smartphone',
+          base_price: basePrice,
+          images: deviceMatch.specs?.images || [
+            'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500'
+          ],
+          badge: deviceMatch.specs?.badge || undefined,
+          description: deviceMatch.specs?.description || `Experience the latest technology with the ${deviceMatch.name}.`,
+          variants: deviceVariants,
+          specifications: deviceMatch.specs?.specifications || [
+            {
+              category: 'General',
+              specs: [
+                { name: 'Brand', value: gigsDeviceMatch?.brand || 'Unknown' },
+                { name: 'Model', value: deviceMatch.name }
+              ]
+            }
+          ],
+          features: deviceMatch.specs?.features || [
+            { name: 'Premium Quality', description: 'High-quality device with premium features', icon: '⭐' }
+          ]
+        };
+
         return new Response(
-          JSON.stringify(device),
+          JSON.stringify(deviceDetail),
           { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
 
       case 'plans':
+        // Query plans with terms
+        const { data: planData } = await supabaseClient
+          .from('plan_product_models')
+          .select(`
+            *,
+            plan_product_terms(*)
+          `)
+          .eq('is_active', true)
+          .is('deleted_at', null);
+
+        const transformedPlans = (planData || []).map(plan => {
+          const terms = (plan.plan_product_terms || []).filter(t => t.is_active);
+          const monthlyTerm = terms.find(t => t.term_length_months === 1);
+          const yearlyTerm = terms.find(t => t.term_length_months === 12);
+          
+          return {
+            id: plan.id,
+            name: plan.name,
+            description: `Perfect plan for your needs`,
+            data_amount: 'Custom', // This should come from plan specs
+            price_monthly: monthlyTerm ? formatPrice(monthlyTerm.monthly_price_cents) : 0,
+            price_yearly: yearlyTerm ? formatPrice(yearlyTerm.monthly_price_cents * 12) : 0,
+            features: ['5G Network', 'Mobile Hotspot', 'Unlimited Talk & Text'], // Default features
+            is_unlimited: false // This should come from plan specs
+          };
+        });
+
+        // If no plans in database, return empty array instead of mock data
         return new Response(
-          JSON.stringify(mockPlans),
+          JSON.stringify(transformedPlans),
           { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
 
@@ -263,7 +328,10 @@ serve(async (req) => {
   } catch (error) {
     console.error('API Error:', error);
     return new Response(
-      JSON.stringify({ error: 'Internal server error' }),
+      JSON.stringify({ 
+        error: 'Internal server error',
+        details: error.message 
+      }),
       { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   }
