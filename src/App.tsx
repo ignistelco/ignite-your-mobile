@@ -24,7 +24,7 @@ import Checkout from "./pages/Checkout";
 import NotFound from "./pages/NotFound";
 import AdminLayout from "./pages/admin/AdminLayout";
 import AdminLoginPage from "./pages/admin/AdminLoginPage";
-import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
 import DeviceListPage from "./pages/admin/DeviceListPage";
 import DeviceFormPage from "./pages/admin/DeviceFormPage";
 import FilterManagerPage from "./pages/admin/FilterManagerPage";
@@ -64,8 +64,8 @@ const App = () => (
             {/* Admin Routes */}
             <Route path="/admin/login" element={<AdminLoginPage />} />
             <Route path="/admin" element={<AdminLayout />}>
-              <Route index element={<AdminDashboard />} />
-              <Route path="dashboard" element={<AdminDashboard />} />
+              <Route index element={<AdminDashboardPage />} />
+              <Route path="dashboard" element={<AdminDashboardPage />} />
               <Route path="devices" element={<DeviceListPage />} />
               <Route path="devices/new" element={<DeviceFormPage />} />
               <Route path="devices/:id" element={<DeviceFormPage />} />
