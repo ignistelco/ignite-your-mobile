@@ -5,7 +5,7 @@ import {
   Card,
   CardContent,
   Button,
-  Grid,
+  GridLegacy as Grid,
   TextField,
   Switch,
   FormControlLabel,
