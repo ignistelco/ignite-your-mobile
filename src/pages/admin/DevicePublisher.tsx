@@ -161,7 +161,7 @@ export default function DevicePublisher() {
                 {devices?.map((device) => (
                   <TableRow key={device.id}>
                     <TableCell>{device.name}</TableCell>
-                    <TableCell>{device.specs?.brand || 'N/A'}</TableCell>
+                    <TableCell>{(device.specs as Record<string, any> | null)?.brand || 'N/A'}</TableCell>
                     <TableCell>
                       <Chip
                         label={device.is_active ? 'Published' : 'Draft'}
